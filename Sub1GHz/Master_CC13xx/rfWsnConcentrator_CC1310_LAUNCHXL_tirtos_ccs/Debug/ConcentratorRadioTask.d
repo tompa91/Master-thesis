@@ -195,12 +195,12 @@ ConcentratorRadioTask.obj: /opt/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/in
 ConcentratorRadioTask.obj: /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/source/ti/devices/cc13x0/driverlib/rf_prop_cmd.h
 ConcentratorRadioTask.obj: /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/source/ti/drivers/PIN.h
 ConcentratorRadioTask.obj: /opt/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/include/stddef.h
+ConcentratorRadioTask.obj: /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/source/ti/drivers/GPIO.h
 ConcentratorRadioTask.obj: ../Board.h
 ConcentratorRadioTask.obj: /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/source/ti/drivers/ADC.h
 ConcentratorRadioTask.obj: /opt/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/include/stddef.h
 ConcentratorRadioTask.obj: /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/source/ti/drivers/ADCBuf.h
 ConcentratorRadioTask.obj: /opt/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/include/stddef.h
-ConcentratorRadioTask.obj: /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/source/ti/drivers/GPIO.h
 ConcentratorRadioTask.obj: /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/source/ti/drivers/PWM.h
 ConcentratorRadioTask.obj: /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/source/ti/drivers/SPI.h
 ConcentratorRadioTask.obj: /opt/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/include/stddef.h
@@ -418,12 +418,12 @@ ConcentratorRadioTask.obj: /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_0
 /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/source/ti/devices/cc13x0/driverlib/rf_prop_cmd.h: 
 /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/source/ti/drivers/PIN.h: 
 /opt/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/include/stddef.h: 
+/home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/source/ti/drivers/GPIO.h: 
 ../Board.h: 
 /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/source/ti/drivers/ADC.h: 
 /opt/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/include/stddef.h: 
 /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/source/ti/drivers/ADCBuf.h: 
 /opt/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/include/stddef.h: 
-/home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/source/ti/drivers/GPIO.h: 
 /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/source/ti/drivers/PWM.h: 
 /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/source/ti/drivers/SPI.h: 
 /opt/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/include/stddef.h: 

@@ -245,6 +245,7 @@ NodeRadioTask.obj: /opt/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/include/st
 NodeRadioTask.obj: ../easylink/EasyLink.h
 NodeRadioTask.obj: ../RadioProtocol.h
 NodeRadioTask.obj: ../NodeRadioTask.h
+NodeRadioTask.obj: /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/kernel/tirtos/packages/ti/sysbios/knl/Event.h
 NodeRadioTask.obj: /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/source/ti/devices/cc13x0/driverlib/aon_batmon.h
 NodeRadioTask.obj: /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/source/ti/devices/cc13x0/driverlib/../inc/hw_aon_batmon.h
 NodeRadioTask.obj: /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/source/ti/devices/cc13x0/driverlib/trng.h
@@ -495,6 +496,7 @@ NodeRadioTask.obj: /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/
 ../easylink/EasyLink.h: 
 ../RadioProtocol.h: 
 ../NodeRadioTask.h: 
+/home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/kernel/tirtos/packages/ti/sysbios/knl/Event.h: 
 /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/source/ti/devices/cc13x0/driverlib/aon_batmon.h: 
 /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/source/ti/devices/cc13x0/driverlib/../inc/hw_aon_batmon.h: 
 /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/source/ti/devices/cc13x0/driverlib/trng.h: 

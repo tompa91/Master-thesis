@@ -62,14 +62,16 @@
 #define NODE_TASK_STACK_SIZE 1024
 #define NODE_TASK_PRIORITY   3
 
-#define NODE_EVENT_ALL                  0xFFFFFFFF
+#define NODE_EVENT_ALL              0xFFFFFFFF
 #define NODE_EVENT_NEW_ADC_VALUE    (uint32_t)(1 << 0)
 
 #ifdef COMMISSIONING
 #define COMMISSION_TASK_STACK_SIZE  1024
 #define COMMISSION_TASK_PRIORITY    5
 
-#define COMMISSION_EVENT_ALL            0xFFFFFFFF
+#define CONNECT_EVENT_ALL           0xFFFFFFFF
+#define CONNECT_SUCCESS_EVENT       (uint32_t)(1 << 0)
+
 #endif //COMMISSIONING
 
 /* A change mask of 0xFF0 means that changes in the lower 4 bits does not trigger a wakeup. */
@@ -96,8 +98,8 @@ static uint16_t txData;
 static Task_Params commissionTaskParams;
 Task_Struct commissionTask;
 static uint8_t commissionTaskStack[COMMISSION_TASK_STACK_SIZE];
-Event_Struct commissionEvent;
-static Event_Handle commissionEventHandle;
+Event_Struct connectEvent;
+static Event_Handle connectEventHandle;
 #endif //COMMISSIONING
 
 
@@ -106,11 +108,11 @@ Clock_Struct fastReportTimeoutClock;     /* not static so you can see in ROV */
 static Clock_Handle fastReportTimeoutClockHandle;
 
 /* Pin driver handle */
-static PIN_Handle buttonPinHandle;
+/*static PIN_Handle buttonPinHandle;
 static PIN_Handle ledPinHandle;
 static PIN_State buttonPinState;
 static PIN_State ledPinState;
-
+*/
 /* Enable the 3.3V power domain used by the LCD */
 PIN_Config pinTable[] = {
     NODE_ACTIVITY_LED | PIN_GPIO_OUTPUT_EN | PIN_GPIO_LOW | PIN_PUSHPULL | PIN_DRVSTR_MAX,
@@ -147,8 +149,8 @@ void commissionTask_init(void)
     /* Create event used internally for state changes */
     Event_Params eventParam2;
     Event_Params_init(&eventParam2);
-    Event_construct(&commissionEvent, &eventParam2);
-    commissionEventHandle = Event_handle(&commissionEvent);
+    Event_construct(&connectEvent, &eventParam2);
+    connectEventHandle = Event_handle(&connectEvent);
 
 
     /************  ||  *******************************************/
@@ -203,18 +205,45 @@ void NodeTask_init(void)
 }
 
 #ifdef COMMISSIONING
-#define PASSWORD_LENGTH    10
+
+/*
+ *  ======== gpioButtonFxn0 ========
+ *  Callback function for the GPIO interrupt on Board_GPIO_BUTTON1.
+ *
+ *  Signaling commissionTask to initiate a connection with a
+ *  concentrator.
+ */
+void gpioButtonFxn0(uint_least8_t index)
+{
+    GPIO_toggle(Board_GPIO_LED0);
+
+    Event_post(commissionEventHandle, RADIO_EVENT_INIT);
+}
 
 static void commissionTaskFunction(UArg arg0, UArg arg1)
 {
+    uint8_t     size, data;
     char        input;
-    const char  echoPrompt[] = "Echoing characters:\r\n";
+    char        echo[2];
+    const char  skip2rows[] = "\r\n\r\n";
+    const char  welcome[] = "Welcome to the WSN Node program!\r\n\r\n";
+    const char  echoPrompt[] = "Enter network password: ";
+    const char  wrong_pass[] = "Wrong password, try again!\r\n";
+    const char  netw_full[] = "The network is full. To replace an existing node, press Y. Press n if nothing is to be done.\r\n";
+    const char  connected[] = "Connection to Concentrator established.\r\n\r\n";
+    const char  connection_failed[] = "Connection failed. Try again? Y/n: ";
     UART_Handle uart;
     UART_Params uartParams;
 
-    char passw[PASSWORD_LENGTH] = {" "};
+    char passw[PASSWORD_LENGTH];
 
-    UART_init();concentratorEventHandle
+    /* install Button callback */
+    GPIO_setCallback(Board_GPIO_BUTTON0, gpioButtonFxn0);
+
+    /* Enable interrupts */
+    GPIO_enableInt(Board_GPIO_BUTTON0);
+
+    UART_init();
 
     /* Create a UART with data processing off. */
     UART_Params_init(&uartParams);
@@ -231,26 +260,110 @@ static void commissionTaskFunction(UArg arg0, UArg arg1)
         while (1);
     }
 
-    UART_write(uart, echoPrompt, sizeof(echoPrompt));
+    UART_write(uart, welcome, sizeof(welcome));
 
-    int i = 0;
-    char star = '*';
-    uint8_t correct = 0;
+    while(1)
+    {
+        // Wait for directions
+        uint32_t cEvents = Event_pend(commissionEventHandle, 0, RADIO_EVENT_CONNECT_FAIL
+                                      | RADIO_EVENT_CONNECT_SUCCESS | RADIO_EVENT_AUTHENTICATE
+                                      | RADIO_EVENT_NETW_FULL | RADIO_EVENT_WRONG_PASSW
+                                      | RADIO_EVENT_INIT, BIOS_WAIT_FOREVER);
 
-
-    while(!correct) {
-        while(i < PASSWORD_LENGTH + 10 || input != '\n') {
-            UART_read(uart, &input, 1);
-            UART_write(uart, &star, 1);
-
-            passw[i] = input;
-
-            i++;
+        if (cEvents & RADIO_EVENT_INIT)
+        {
+            // Say hello to concentrator
+            data = NODE_TYPE_BLE_ANNCE;
+            NodeRadioTask_sendData((void *) data, 0, RADIO_EVENT_SEND_INIT_MSG);
         }
 
 
-    }
+        if (cEvents & RADIO_EVENT_AUTHENTICATE)
+        {
+            UART_write(uart, echoPrompt, sizeof(echoPrompt));
 
+            if (cEvents & RADIO_EVENT_WRONG_PASSW)
+            {
+                UART_write(uart, skip2rows, sizeof(skip2rows));
+
+                UART_write(uart, wrong_pass, sizeof(wrong_pass));
+                UART_write(uart, echoPrompt, sizeof(echoPrompt));
+            }
+
+            input = ' ';
+            int i = 0;
+
+            while ((i < PASSWORD_LENGTH) && (input != 13))
+            {
+                UART_read(uart, &input, 1);
+
+                if(input == 13)
+                {
+                    echo[0] = '\r';
+                    echo[1] = '\n';
+                    size = 2;
+                }
+                else
+                {
+                    passw[i] = input;
+                    echo[0] = input;
+                    size = 1;
+                    i++;
+                }
+
+                UART_write(uart, &echo, size);
+            }
+
+            passw[i] = '\0';
+            i++;
+
+            NodeRadioTask_sendData((void *) passw, i, RADIO_EVENT_SEND_STRING);
+        }
+
+        if (cEvents & RADIO_EVENT_NETW_FULL)
+        {
+            UART_write(uart, netw_full, sizeof(netw_full));
+
+            UART_read(uart, &input, 1);
+            UART_write(uart, &input, 1);
+
+            do {
+                if(input == 'y' || input == 'Y')
+                {
+                    /* Alert concentrator to send a list of existing nodes
+                     * to choose which one to replace
+                     */
+                    //  //  EDIT
+                    /************************/
+                    UART_write(uart, skip2rows, sizeof(skip2rows));
+
+                }
+                else if(input == 'n' || input == 'N')
+                {
+                    /* Do nothing */
+                    UART_write(uart, skip2rows, sizeof(skip2rows));
+
+                }
+            } while(input != 'y' || input != 'Y' || input != 'n' || input != 'N');
+        }
+
+        if (cEvents & (RADIO_EVENT_CONNECT_SUCCESS | NODE_ALREADY_KNOWN))
+        {
+            // Alert user that connection is established
+            UART_write(uart, connected, sizeof(connected));
+
+            Event_post(connectEventHandle, RADIO_EVENT_CONNECT_SUCCESS);
+        }
+
+        if (cEvents & RADIO_EVENT_CONNECT_FAIL)
+        {
+            /* Tell user that connection has failed and ask if
+             * user wants to try again
+             */
+            UART_write(uart, connection_failed, sizeof(connection_failed));
+            /* . . . */
+        }
+    }
 }
 #endif //COMMISSIONING
 
@@ -291,7 +404,7 @@ static void nodeTaskFunction(UArg arg0, UArg arg1)
     // Wait for established connection to concentrator      //
     //******************************************************//
 
-    uint32_t cEvents = Event_pend(commissionEventHandle, 0, COMMISSION_EVENT_ALL, BIOS_WAIT_FOREVER);
+    uint32_t cEvents = Event_pend(connectEventHandle, 0, RADIO_EVENT_CONNECT_SUCCESS, BIOS_WAIT_FOREVER);
 #endif //COMMISSIONING
 
 
@@ -344,7 +457,7 @@ static void nodeTaskFunction(UArg arg0, UArg arg1)
             txData = 2;
 
             /* Send ADC value to concentrator */
-            NodeRadioTask_sendAdcData(txData);
+            NodeRadioTask_sendData((void *) txData, 2, RADIO_EVENT_SEND_DATA);
         }
     }
 }

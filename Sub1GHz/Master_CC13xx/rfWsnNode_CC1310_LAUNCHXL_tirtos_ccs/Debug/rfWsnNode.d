@@ -190,6 +190,37 @@ rfWsnNode.obj: /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/sour
 rfWsnNode.obj: /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/source/ti/devices/cc13x0/driverlib/gpio.h
 rfWsnNode.obj: /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/source/ti/devices/cc13x0/driverlib/../inc/hw_gpio.h
 rfWsnNode.obj: ../NodeRadioTask.h
+rfWsnNode.obj: /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/kernel/tirtos/packages/ti/sysbios/knl/Event.h
+rfWsnNode.obj: /opt/ti/xdctools_3_32_01_22_core/packages/xdc/runtime/Types.h
+rfWsnNode.obj: /opt/ti/xdctools_3_32_01_22_core/packages/xdc/runtime/IInstance.h
+rfWsnNode.obj: /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/kernel/tirtos/packages/ti/sysbios/knl/Event__prologue.h
+rfWsnNode.obj: /opt/ti/xdctools_3_32_01_22_core/packages/xdc/runtime/Assert.h
+rfWsnNode.obj: /opt/ti/xdctools_3_32_01_22_core/packages/xdc/runtime/Diags.h
+rfWsnNode.obj: /opt/ti/xdctools_3_32_01_22_core/packages/xdc/runtime/Log.h
+rfWsnNode.obj: /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/kernel/tirtos/packages/ti/sysbios/knl/Queue.h
+rfWsnNode.obj: /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/kernel/tirtos/packages/ti/sysbios/knl/Clock.h
+rfWsnNode.obj: /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/kernel/tirtos/packages/ti/sysbios/knl/Task.h
+rfWsnNode.obj: /opt/ti/xdctools_3_32_01_22_core/packages/xdc/runtime/Types.h
+rfWsnNode.obj: /opt/ti/xdctools_3_32_01_22_core/packages/xdc/runtime/IInstance.h
+rfWsnNode.obj: /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/kernel/tirtos/packages/ti/sysbios/knl/Task__prologue.h
+rfWsnNode.obj: /opt/ti/xdctools_3_32_01_22_core/packages/xdc/runtime/Error.h
+rfWsnNode.obj: /opt/ti/xdctools_3_32_01_22_core/packages/xdc/runtime/Assert.h
+rfWsnNode.obj: /opt/ti/xdctools_3_32_01_22_core/packages/xdc/runtime/Diags.h
+rfWsnNode.obj: /opt/ti/xdctools_3_32_01_22_core/packages/xdc/runtime/Log.h
+rfWsnNode.obj: /opt/ti/xdctools_3_32_01_22_core/packages/xdc/runtime/IHeap.h
+rfWsnNode.obj: /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/kernel/tirtos/packages/ti/sysbios/knl/Queue.h
+rfWsnNode.obj: /opt/ti/xdctools_3_32_01_22_core/packages/xdc/runtime/IModule.h
+rfWsnNode.obj: /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/kernel/tirtos/packages/ti/sysbios/interfaces/ITaskSupport.h
+rfWsnNode.obj: /opt/ti/xdctools_3_32_01_22_core/packages/xdc/runtime/Types.h
+rfWsnNode.obj: /opt/ti/xdctools_3_32_01_22_core/packages/xdc/runtime/Error.h
+rfWsnNode.obj: /opt/ti/xdctools_3_32_01_22_core/packages/xdc/runtime/IModule.h
+rfWsnNode.obj: /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/kernel/tirtos/packages/ti/sysbios/knl/Clock.h
+rfWsnNode.obj: /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/kernel/tirtos/packages/ti/sysbios/knl/package/Task_SupportProxy.h
+rfWsnNode.obj: /opt/ti/xdctools_3_32_01_22_core/packages/xdc/runtime/Types.h
+rfWsnNode.obj: /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/kernel/tirtos/packages/ti/sysbios/interfaces/ITaskSupport.h
+rfWsnNode.obj: /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/kernel/tirtos/packages/ti/sysbios/knl/Task__epilogue.h
+rfWsnNode.obj: /opt/ti/xdctools_3_32_01_22_core/packages/xdc/runtime/IModule.h
+rfWsnNode.obj: /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/kernel/tirtos/packages/ti/sysbios/knl/Event__epilogue.h
 rfWsnNode.obj: ../NodeTask.h
 
 ../rfWsnNode.c: 
@@ -382,4 +413,35 @@ rfWsnNode.obj: ../NodeTask.h
 /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/source/ti/devices/cc13x0/driverlib/gpio.h: 
 /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/source/ti/devices/cc13x0/driverlib/../inc/hw_gpio.h: 
 ../NodeRadioTask.h: 
+/home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/kernel/tirtos/packages/ti/sysbios/knl/Event.h: 
+/opt/ti/xdctools_3_32_01_22_core/packages/xdc/runtime/Types.h: 
+/opt/ti/xdctools_3_32_01_22_core/packages/xdc/runtime/IInstance.h: 
+/home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/kernel/tirtos/packages/ti/sysbios/knl/Event__prologue.h: 
+/opt/ti/xdctools_3_32_01_22_core/packages/xdc/runtime/Assert.h: 
+/opt/ti/xdctools_3_32_01_22_core/packages/xdc/runtime/Diags.h: 
+/opt/ti/xdctools_3_32_01_22_core/packages/xdc/runtime/Log.h: 
+/home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/kernel/tirtos/packages/ti/sysbios/knl/Queue.h: 
+/home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/kernel/tirtos/packages/ti/sysbios/knl/Clock.h: 
+/home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/kernel/tirtos/packages/ti/sysbios/knl/Task.h: 
+/opt/ti/xdctools_3_32_01_22_core/packages/xdc/runtime/Types.h: 
+/opt/ti/xdctools_3_32_01_22_core/packages/xdc/runtime/IInstance.h: 
+/home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/kernel/tirtos/packages/ti/sysbios/knl/Task__prologue.h: 
+/opt/ti/xdctools_3_32_01_22_core/packages/xdc/runtime/Error.h: 
+/opt/ti/xdctools_3_32_01_22_core/packages/xdc/runtime/Assert.h: 
+/opt/ti/xdctools_3_32_01_22_core/packages/xdc/runtime/Diags.h: 
+/opt/ti/xdctools_3_32_01_22_core/packages/xdc/runtime/Log.h: 
+/opt/ti/xdctools_3_32_01_22_core/packages/xdc/runtime/IHeap.h: 
+/home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/kernel/tirtos/packages/ti/sysbios/knl/Queue.h: 
+/opt/ti/xdctools_3_32_01_22_core/packages/xdc/runtime/IModule.h: 
+/home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/kernel/tirtos/packages/ti/sysbios/interfaces/ITaskSupport.h: 
+/opt/ti/xdctools_3_32_01_22_core/packages/xdc/runtime/Types.h: 
+/opt/ti/xdctools_3_32_01_22_core/packages/xdc/runtime/Error.h: 
+/opt/ti/xdctools_3_32_01_22_core/packages/xdc/runtime/IModule.h: 
+/home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/kernel/tirtos/packages/ti/sysbios/knl/Clock.h: 
+/home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/kernel/tirtos/packages/ti/sysbios/knl/package/Task_SupportProxy.h: 
+/opt/ti/xdctools_3_32_01_22_core/packages/xdc/runtime/Types.h: 
+/home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/kernel/tirtos/packages/ti/sysbios/interfaces/ITaskSupport.h: 
+/home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/kernel/tirtos/packages/ti/sysbios/knl/Task__epilogue.h: 
+/opt/ti/xdctools_3_32_01_22_core/packages/xdc/runtime/IModule.h: 
+/home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/kernel/tirtos/packages/ti/sysbios/knl/Event__epilogue.h: 
 ../NodeTask.h: 

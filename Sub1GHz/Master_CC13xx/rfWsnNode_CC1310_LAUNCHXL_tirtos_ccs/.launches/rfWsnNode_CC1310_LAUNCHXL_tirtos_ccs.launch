@@ -5,7 +5,7 @@
 <stringAttribute key="com.ti.ccstudio.debug.debugModel.ATTR_PROGRAM.Texas Instruments XDS110 USB Debug Probe/Cortex_M3_0" value="${build_artifact:rfWsnNode_CC1310_LAUNCHXL_tirtos_ccs}"/>
 <stringAttribute key="com.ti.ccstudio.debug.debugModel.ATTR_PROJECT.Texas Instruments XDS110 USB Debug Probe/Cortex_M3_0" value="rfWsnNode_CC1310_LAUNCHXL_tirtos_ccs"/>
 <stringAttribute key="com.ti.ccstudio.debug.debugModel.ATTR_TARGET_CONFIG" value="${target_config_active_default:rfWsnNode_CC1310_LAUNCHXL_tirtos_ccs}"/>
-<stringAttribute key="com.ti.ccstudio.debug.debugModel.MRU_PROGRAM.Texas Instruments XDS110 USB Debug Probe/Cortex_M3_0" value="/home/mike/Master_CC13xx/rfWsnNode_CC1310_LAUNCHXL_tirtos_ccs/Debug/rfWsnNode_CC1310_LAUNCHXL_tirtos_ccs.out"/>
+<stringAttribute key="com.ti.ccstudio.debug.debugModel.MRU_PROGRAM.Texas Instruments XDS110 USB Debug Probe/Cortex_M3_0" value="/home/mike/Documents/Exjobb/Master-thesis/Sub1GHz/Master_CC13xx/rfWsnNode_CC1310_LAUNCHXL_tirtos_ccs/Debug/rfWsnNode_CC1310_LAUNCHXL_tirtos_ccs.out"/>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
 <listEntry value="/rfWsnNode_CC1310_LAUNCHXL_tirtos_ccs"/>
 </listAttribute>

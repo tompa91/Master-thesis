@@ -39,9 +39,17 @@
 #define RADIO_CONCENTRATOR_ADDRESS     0x00
 #define RADIO_EASYLINK_MODULATION     EasyLink_Phy_Custom
 
-#define RADIO_PACKET_TYPE_ACK_PACKET             0
-#define RADIO_PACKET_TYPE_ADC_SENSOR_PACKET      1
-#define RADIO_PACKET_TYPE_DM_SENSOR_PACKET       2
+#define RADIO_PACKET_TYPE_ACK_PACKET            0
+#define RADIO_PACKET_TYPE_DATA_PACKET           1
+#define RADIO_PACKET_TYPE_DM_SENSOR_PACKET      2
+#define RADIO_PACKET_TYPE_INIT_PACKET           3
+#define RADIO_PACKET_TYPE_STRING_PACKET         4
+#define RADIO_PACKET_TYPE_NETW_STATUS_PACKET    5
+
+#define NETW_STATUS_ALL             0xFF
+#define NETW_STATUS_BUSY            (uint8_t)(1 << 0)
+#define NETW_STATUS_AUTHENTICATE    (uint8_t)(1 << 1)
+#define NETW_STATUS_ERROR           (uint8_t)(1 << 2)
 
 struct PacketHeader {
     uint8_t sourceAddress;
@@ -51,6 +59,17 @@ struct PacketHeader {
 struct AdcSensorPacket {
     struct PacketHeader header;
     uint16_t adcValue;
+};
+
+struct InitPacket {
+    struct PacketHeader header;
+    uint8_t nodeInfo;
+};
+
+struct StringPacket {
+    struct PacketHeader header;
+    uint8_t stringSize;
+    char buffer[EASYLINK_MAX_DATA_LENGTH - 3];
 };
 
 struct DualModeSensorPacket {
@@ -63,6 +82,11 @@ struct DualModeSensorPacket {
 
 struct AckPacket {
     struct PacketHeader header;
+};
+
+struct NetwStatus {
+    struct PacketHeader header;
+    uint8_t status;
 };
 
 #endif /* RADIOPROTOCOL_H_ */

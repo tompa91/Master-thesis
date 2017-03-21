@@ -67,15 +67,10 @@
 #define NODERADIO_TASK_STACK_SIZE 1024
 #define NODERADIO_TASK_PRIORITY   3
 
-#define RADIO_EVENT_ALL                 0xFFFFFFFF
-#define RADIO_EVENT_SEND_ADC_DATA       (uint32_t)(1 << 0)
-#define RADIO_EVENT_DATA_ACK_RECEIVED   (uint32_t)(1 << 1)
-#define RADIO_EVENT_ACK_TIMEOUT         (uint32_t)(1 << 2)
-#define RADIO_EVENT_SEND_FAIL           (uint32_t)(1 << 3)
+
 
 #define NODERADIO_MAX_RETRIES 2
-#define NORERADIO_ACK_TIMEOUT_TIME_MS (160)
-
+#define NODERADIO_ACK_TIMEOUT_TIME_MS (160)
 
 /***** Type declarations *****/
 struct RadioOperation {
@@ -98,9 +93,12 @@ static Event_Handle radioOperationEventHandle;
 Semaphore_Struct radioResultSem;  /* not static so you can see in ROV */
 static Semaphore_Handle radioResultSemHandle;
 static struct RadioOperation currentRadioOperation;
-static uint16_t adcData;
+static uint16_t appData;
 static uint8_t nodeAddress = 0;
+char dataString[EASYLINK_MAX_DATA_LENGTH];
 static struct DualModeSensorPacket dmSensorPacket;
+static struct InitPacket initPacket;
+static struct StringPacket stringPacket;
 
 Semaphore_Struct concConnectSem;
 Semaphore_Handle concConnectSemHandle;
@@ -116,6 +114,8 @@ extern PIN_Handle ledPinHandle;
 /***** Prototypes *****/
 static void nodeRadioTaskFunction(UArg arg0, UArg arg1);
 static void returnRadioOperationStatus(enum NodeRadioOperationStatus status);
+static void sendInitPacket(struct InitPacket packet, uint8_t maxNumberOfRetries, uint32_t ackTimeoutMs);
+static void sendStringPacket(struct StringPacket packet, uint8_t strLen, uint8_t maxNumberOfRetries, uint32_t ackTimeoutMs);
 static void sendDmPacket(struct DualModeSensorPacket sensorPacket, uint8_t maxNumberOfRetries, uint32_t ackTimeoutMs);
 static void resendPacket();
 static void rxDoneCallback(EasyLink_RxPacket * rxPacket, EasyLink_Status status);
@@ -129,15 +129,25 @@ void NodeRadioTask_init(void) {
     Semaphore_construct(&radioAccessSem, 1, &semParam);
     radioAccessSemHandle = Semaphore_handle(&radioAccessSem);
 
+    /* Create semaphore used to notify commissionTask that
+     * a
+     */
+    /*Semaphore_construct(&concConnectSem, 0, &semParam);
+    concConnectSemHandle = Semaphore_handle(&concConnectSem);
+*/
     /* Create semaphore used for callers to wait for result */
     Semaphore_construct(&radioResultSem, 0, &semParam);
     radioResultSemHandle = Semaphore_handle(&radioResultSem);
+
 
     /* Create event used internally for state changes */
     Event_Params eventParam;
     Event_Params_init(&eventParam);
     Event_construct(&radioOperationEvent, &eventParam);
     radioOperationEventHandle = Event_handle(&radioOperationEvent);
+
+    Event_construct(&commissionEvent, &eventParam);
+    commissionEventHandle = Event_handle(&commissionEvent);
 
     /* Create the radio protocol task */
     Task_Params_init(&nodeRadioTaskParams);
@@ -182,8 +192,8 @@ static void nodeRadioTaskFunction(UArg arg0, UArg arg1)
     }
 
     /* Setup ADC sensor packet */
-    dmSensorPacket.header.sourceAddress = nodeAddress;
-    dmSensorPacket.header.packetType = RADIO_PACKET_TYPE_DM_SENSOR_PACKET;
+    //dmSensorPacket.header.sourceAddress = nodeAddress;
+    //dmSensorPacket.header.packetType = RADIO_PACKET_TYPE_DM_SENSOR_PACKET;
 
 
     /* Initialise previous Tick count used to calculate uptime for the TLM beacon */
@@ -195,8 +205,29 @@ static void nodeRadioTaskFunction(UArg arg0, UArg arg1)
         /* Wait for an event */
         uint32_t events = Event_pend(radioOperationEventHandle, 0, RADIO_EVENT_ALL, BIOS_WAIT_FOREVER);
 
+        /* If we should introduce ourselves to a concentrator */
+        if (events & RADIO_EVENT_SEND_INIT_MSG)
+        {
+            initPacket.header.sourceAddress = nodeAddress;
+            initPacket.header.packetType = RADIO_PACKET_TYPE_INIT_PACKET;
+
+            initPacket.nodeInfo = (uint8_t) appData;
+
+            sendInitPacket(initPacket, NODERADIO_MAX_RETRIES, NODERADIO_ACK_TIMEOUT_TIME_MS);
+        }
+
+
+        if (events & RADIO_EVENT_SEND_STRING)
+        {
+            stringPacket.header.sourceAddress = nodeAddress;
+            stringPacket.header.packetType = RADIO_PACKET_TYPE_STRING_PACKET;
+
+            sendStringPacket(stringPacket, (uint8_t) appData, NODERADIO_MAX_RETRIES, NODERADIO_ACK_TIMEOUT_TIME_MS);
+        }
+
+
         /* If we should send ADC data */
-        if (events & RADIO_EVENT_SEND_ADC_DATA)
+        if (events & RADIO_EVENT_SEND_DATA)
         {
             uint32_t currentTicks;
 
@@ -215,11 +246,11 @@ static void nodeRadioTaskFunction(UArg arg0, UArg arg1)
             prevTicks = currentTicks;
 
             dmSensorPacket.batt = AONBatMonBatteryVoltageGet();
-            dmSensorPacket.adcValue = adcData;
+            dmSensorPacket.adcValue = appData;
             dmSensorPacket.button = !GPIO_read(Board_PIN_BUTTON0);
 
 
-            sendDmPacket(dmSensorPacket, NODERADIO_MAX_RETRIES, NORERADIO_ACK_TIMEOUT_TIME_MS);
+            sendDmPacket(dmSensorPacket, NODERADIO_MAX_RETRIES, NODERADIO_ACK_TIMEOUT_TIME_MS);
         }
 
         /* If we get an ACK from the concentrator */
@@ -249,11 +280,10 @@ static void nodeRadioTaskFunction(UArg arg0, UArg arg1)
         {
             returnRadioOperationStatus(NodeRadioStatus_Failed);
         }
-
     }
 }
 
-enum NodeRadioOperationStatus NodeRadioTask_sendAdcData(uint16_t data)
+enum NodeRadioOperationStatus NodeRadioTask_sendData(void *data, uint8_t dataSize, uint32_t msgType)
 {
     enum NodeRadioOperationStatus status;
 
@@ -261,10 +291,17 @@ enum NodeRadioOperationStatus NodeRadioTask_sendAdcData(uint16_t data)
     Semaphore_pend(radioAccessSemHandle, BIOS_WAIT_FOREVER);
 
     /* Save data to send */
-    adcData = data;
+    if (msgType & (RADIO_EVENT_SEND_PASSW | RADIO_EVENT_SEND_STRING))
+    {
+        memcpy(stringPacket.buffer, (char *) data, dataSize);
+        stringPacket.stringSize = dataSize;
+        //appData = (uint16_t) dataSize;
+    }
+    else
+        appData = *((uint16_t *) data);
 
-    /* Raise RADIO_EVENT_SEND_ADC_DATA event */
-    Event_post(radioOperationEventHandle, RADIO_EVENT_SEND_ADC_DATA);
+    /* Raise event type */
+    Event_post(radioOperationEventHandle, msgType);
 
     /* Wait for result */
     Semaphore_pend(radioResultSemHandle, BIOS_WAIT_FOREVER);
@@ -276,6 +313,75 @@ enum NodeRadioOperationStatus NodeRadioTask_sendAdcData(uint16_t data)
     Semaphore_post(radioAccessSemHandle);
 
     return status;
+}
+
+static void sendInitPacket(struct InitPacket packet, uint8_t maxNumberOfRetries, uint32_t ackTimeoutMs)
+{
+    /* Set destination address in EasyLink API */
+    currentRadioOperation.easyLinkTxPacket.dstAddr[0] = RADIO_CONCENTRATOR_ADDRESS;
+
+    currentRadioOperation.easyLinkTxPacket.payload[0] = packet.header.sourceAddress;
+    currentRadioOperation.easyLinkTxPacket.payload[1] = packet.header.packetType;
+    currentRadioOperation.easyLinkTxPacket.payload[2] = packet.nodeInfo;
+
+    currentRadioOperation.easyLinkTxPacket.len = sizeof(struct InitPacket);
+
+    /* Setup retries */
+    currentRadioOperation.maxNumberOfRetries = maxNumberOfRetries;
+    currentRadioOperation.ackTimeoutMs = ackTimeoutMs;
+    currentRadioOperation.retriesDone = 0;
+    EasyLink_setCtrl(EasyLink_Ctrl_AsyncRx_TimeOut, EasyLink_ms_To_RadioTime(ackTimeoutMs));
+
+    /* Send packet  */
+    if (EasyLink_transmit(&currentRadioOperation.easyLinkTxPacket) != EasyLink_Status_Success)
+    {
+        System_abort("EasyLink_transmit failed");
+    }
+
+    /* Enter RX */
+    if (EasyLink_receiveAsync(rxDoneCallback, 0) != EasyLink_Status_Success)
+    {
+        System_abort("EasyLink_receiveAsync failed");
+    }
+}
+
+static void sendStringPacket(struct StringPacket packet, uint8_t strLen, uint8_t maxNumberOfRetries, uint32_t ackTimeoutMs)
+{
+    uint8_t i;
+
+    /* Set destination address in EasyLink API */
+    currentRadioOperation.easyLinkTxPacket.dstAddr[0] = RADIO_CONCENTRATOR_ADDRESS;
+
+    currentRadioOperation.easyLinkTxPacket.payload[0] = packet.header.sourceAddress;
+    currentRadioOperation.easyLinkTxPacket.payload[1] = packet.header.packetType;
+    currentRadioOperation.easyLinkTxPacket.payload[2] = packet.stringSize;
+
+    for(i = 3; i < (packet.stringSize + 3); i++)
+    {
+        currentRadioOperation.easyLinkTxPacket.payload[i] = (uint8_t) packet.buffer[i - 3];
+    }
+
+    //currentRadioOperation.easyLinkTxPacket.payload[++i] = (uint8_t) '\0';
+
+    currentRadioOperation.easyLinkTxPacket.len = sizeof(struct StringPacket);
+
+    /* Setup retries */
+    currentRadioOperation.maxNumberOfRetries = maxNumberOfRetries;
+    currentRadioOperation.ackTimeoutMs = ackTimeoutMs;
+    currentRadioOperation.retriesDone = 0;
+    EasyLink_setCtrl(EasyLink_Ctrl_AsyncRx_TimeOut, EasyLink_ms_To_RadioTime(ackTimeoutMs));
+
+    /* Send packet  */
+    if (EasyLink_transmit(&currentRadioOperation.easyLinkTxPacket) != EasyLink_Status_Success)
+    {
+        System_abort("EasyLink_transmit failed");
+    }
+
+    /* Enter RX */
+    if (EasyLink_receiveAsync(rxDoneCallback, 0) != EasyLink_Status_Success)
+    {
+        System_abort("EasyLink_receiveAsync failed");
+    }
 }
 
 static void returnRadioOperationStatus(enum NodeRadioOperationStatus result)
@@ -355,17 +461,59 @@ static void rxDoneCallback(EasyLink_RxPacket * rxPacket, EasyLink_Status status)
         /* Check the payload header */
         packetHeader = (struct PacketHeader*)rxPacket->payload;
 
-        /* Check if this is an ACK packet */
-        if (packetHeader->packetType == RADIO_PACKET_TYPE_ACK_PACKET)
+        if(packetHeader->sourceAddress == RADIO_CONCENTRATOR_ADDRESS)
         {
-            /* Signal ACK packet received */
-            Event_post(radioOperationEventHandle, RADIO_EVENT_DATA_ACK_RECEIVED);
-        }
-        else
-        {
-            /* Packet Error, treat as a Timeout and Post a RADIO_EVENT_ACK_TIMEOUT
-               event */
-            Event_post(radioOperationEventHandle, RADIO_EVENT_ACK_TIMEOUT);
+            /* Check if this is an ACK packet */
+            if (packetHeader->packetType == RADIO_PACKET_TYPE_ACK_PACKET)
+            {
+                /* Signal ACK packet received */
+                Event_post(radioOperationEventHandle, RADIO_EVENT_DATA_ACK_RECEIVED);
+            }
+            else if (packetHeader->packetType == RADIO_PACKET_TYPE_NETW_STATUS_PACKET)
+            {
+                returnRadioOperationStatus(NodeRadioStatus_Success);
+
+                //struct NetwStatus* statusPacket;
+                //= (struct NetwStatus *)rxPacket->payload;
+
+                uint32_t statusEvent = (rxPacket->payload[2] << 24) | (rxPacket->payload[3] << 16) |
+                                       (rxPacket->payload[4] << 8) | (rxPacket->payload[4]);
+
+                /* Post commissionTask whatever status we got from concentrator */
+                Event_post(commissionEventHandle, statusEvent);
+
+
+                /*if (statusPacket->status & NETW_STATUS_FULL)
+                {
+                    Event_post(commissionEventHandle, RADIO_EVENT_NETW_FULL);
+                }
+                else if(statusPacket->status & NETW_STATUS_AUTHENTICATE)
+                {
+                    Event_post(commissionEventHandle, RADIO_EVENT_AUTHENTICATE);
+                }
+                else if(statusPacket->status & NETW_STATUS_CONNECTION_SUCCES)
+                {
+                    Event_post(commissionEventHandle, RADIO_EVENT_CONNECT_SUCCESS);
+                }
+                else if(statusPacket->status & NETW_STATUS_ERROR)
+                {
+                    Event_post(commissionEventHandle, RADIO_EVENT_CONNECT_FAIL);
+                }
+                else if(statusPacket->status & NETW_STATUS_WRONG_PASSW)
+                {
+                    Event_post(commissionEventHandle, RADIO_EVENT_WRONG_PASSW);
+                }
+                else if(statusPacket->status & NETW_STATUS_ALREADY_KOWN)
+                {
+                    Event_post(commissionEventHandle, NODE_ALREADY_KNOWN)
+                }*/
+            }
+            else
+            {
+                /* Packet Error, treat as a Timeout and Post a RADIO_EVENT_ACK_TIMEOUT
+                   event */
+                Event_post(radioOperationEventHandle, RADIO_EVENT_ACK_TIMEOUT);
+            }
         }
     }
     /* did the Rx timeout */

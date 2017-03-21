@@ -65,13 +65,6 @@
 
 //#define CONCENTRATOR_DISPLAY_LINES 8
 
-/***** Type declarations *****/
-struct AdcSensorNode {
-    uint8_t address;
-    uint16_t latestAdcValue;
-    uint8_t button;
-    int8_t latestRssi;
-};
 
 
 /***** Variable declarations *****/
@@ -81,21 +74,22 @@ static uint8_t concentratorTaskStack[CONCENTRATOR_TASK_STACK_SIZE];
 Event_Struct concentratorEvent;  /* not static so you can see in ROV */
 static Event_Handle concentratorEventHandle;
 static struct AdcSensorNode latestActiveAdcSensorNode;
-struct AdcSensorNode knownSensorNodes[CONCENTRATOR_MAX_NODES];
-static struct AdcSensorNode* lastAddedSensorNode = knownSensorNodes;
+
+
+
 //static Display_Handle hDisplayLcd;
 //static Display_Handle hDisplaySerial;
 
-PIN_Handle pinHandle;
+//PIN_Handle pinHandle;
 
 
 /***** Prototypes *****/
 static void concentratorTaskFunction(UArg arg0, UArg arg1);
 static void packetReceivedCallback(union ConcentratorPacket* packet, int8_t rssi);
-static void updateLcd(void);
-static void addNewNode(struct AdcSensorNode* node);
+//static void updateLcd(void);
+
 static void updateNode(struct AdcSensorNode* node);
-static uint8_t isKnownNodeAddress(uint8_t address);
+
 
 
 /***** Function definitions *****/
@@ -162,15 +156,16 @@ static void concentratorTaskFunction(UArg arg0, UArg arg1)
             /******************************************************/
 
             /* If we knew this node from before, update the value */
-            if(isKnownNodeAddress(latestActiveAdcSensorNode.address)) {
+            /*if(isKnownNodeAddress(latestActiveAdcSensorNode.address)) {
                 updateNode(&latestActiveAdcSensorNode);
                 //PIN_setOutputValue(pinHandle, Board_PIN_LED2,!PIN_getOutputValue(Board_PIN_LED2));
-            }
-            else {
-                /*
+            */
+
+            /*else {
+
 
                 /* Else add it */
-                addNewNode(&latestActiveAdcSensorNode);
+                //addNewNode(&latestActiveAdcSensorNode);
 
 
                 /* WAIT WHAT!? */
@@ -178,8 +173,8 @@ static void concentratorTaskFunction(UArg arg0, UArg arg1)
 
                 // if(passWordCorrect)
                 //     addNewNode();
-
-            }
+            /*
+            {
 
             /* Update the values on the LCD */
             //updateLcd();
@@ -190,7 +185,7 @@ static void concentratorTaskFunction(UArg arg0, UArg arg1)
 static void packetReceivedCallback(union ConcentratorPacket* packet, int8_t rssi)
 {
     /* If we recived an ADC sensor packet, for backward compatibility */
-    if (packet->header.packetType == RADIO_PACKET_TYPE_ADC_SENSOR_PACKET)
+    if (packet->header.packetType == RADIO_PACKET_TYPE_DATA_PACKET)
     {
         /* Save the values */
         latestActiveAdcSensorNode.address = packet->header.sourceAddress;
@@ -214,71 +209,28 @@ static void packetReceivedCallback(union ConcentratorPacket* packet, int8_t rssi
     }
 }
 
-static uint8_t isKnownNodeAddress(uint8_t address) {
-    uint8_t found = 0;
-    uint8_t i;
-    for (i = 0; i < CONCENTRATOR_MAX_NODES; i++)
-    {
-        if (knownSensorNodes[i].address == address)
-        {
-            found = 1;
-            break;
-        }
-    }
-    return found;
-}
 
-static void updateNode(struct AdcSensorNode* node) {
+static void updateNode(struct AdcSensorNode* node)
+{
     uint8_t i, j;
     for (i = 0; i < CONCENTRATOR_MAX_NODES; i++) {
         if (knownSensorNodes[i].address == node->address)
         {
             // Blink i times
             for(j = 0; j < i + 1; j++) {
-                PIN_setOutputValue(pinHandle, Board_PIN_LED2,!PIN_getOutputValue(Board_PIN_LED2));
+                GPIO_toggle(Board_GPIO_LED0);
 
-                CPUdelay(1000000);
+                CPUdelay(10000000);
 
-                PIN_setOutputValue(pinHandle, Board_PIN_LED2,!PIN_getOutputValue(Board_PIN_LED2));
+                GPIO_toggle(Board_GPIO_LED0);
 
-                CPUdelay(1000000);
+                CPUdelay(10000000);
             }
-
-
-
-            /*if(node->latestAdcValue == 1) {
-                PIN_setOutputValue(pinHandle, Board_PIN_LED1,!PIN_getOutputValue(Board_PIN_LED1));
-
-                CPUdelay(8000*50);
-
-                PIN_setOutputValue(pinHandle, Board_PIN_LED1,!PIN_getOutputValue(Board_PIN_LED1));
-            }
-            else if(node->latestAdcValue == 2) {
-                PIN_setOutputValue(pinHandle, Board_PIN_LED2,!PIN_getOutputValue(Board_PIN_LED2));
-
-                CPUdelay(8000*50);
-
-                PIN_setOutputValue(pinHandle, Board_PIN_LED0,!PIN_getOutputValue(Board_PIN_LED2));
-            }*/
-
-            knownSensorNodes[i].latestAdcValue = node->latestAdcValue;
-            knownSensorNodes[i].latestRssi = node->latestRssi;
-            knownSensorNodes[i].button = node->button;
-            break;
         }
     }
 }
 
-static void addNewNode(struct AdcSensorNode* node) {
-    *lastAddedSensorNode = *node;
 
-    /* Increment and wrap */
-    lastAddedSensorNode++;
-    if (lastAddedSensorNode > &knownSensorNodes[CONCENTRATOR_MAX_NODES-1])
-    {
-        lastAddedSensorNode = knownSensorNodes;
-    }
-}
 
 /*static void updateLcd(void) {
     struct AdcSensorNode* nodePointer = knownSensorNodes;

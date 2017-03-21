@@ -4,8 +4,8 @@
 
 CG_TOOL_ROOT := /opt/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS
 
-GEN_OPTS__FLAG := --cmd_file="/home/mike/Master_CC13xx/tirtos_builds_CC1310_LAUNCHXL_release_ccs/Debug/configPkg/compiler.opt"
-GEN_CMDS__FLAG := -l"/home/mike/Master_CC13xx/tirtos_builds_CC1310_LAUNCHXL_release_ccs/Debug/configPkg/linker.cmd"
+GEN_OPTS__FLAG := --cmd_file="/home/mike/Documents/Exjobb/Master-thesis/Sub1GHz/Master_CC13xx/tirtos_builds_CC1310_LAUNCHXL_release_ccs/Debug/configPkg/compiler.opt"
+GEN_CMDS__FLAG := -l"/home/mike/Documents/Exjobb/Master-thesis/Sub1GHz/Master_CC13xx/tirtos_builds_CC1310_LAUNCHXL_release_ccs/Debug/configPkg/linker.cmd"
 
 ORDERED_OBJS += \
 "./CC1310_LAUNCHXL.obj" \
@@ -154,10 +154,10 @@ all: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 	@$(MAKE) --no-print-directory -Onone "rfWsnConcentrator_CC1310_LAUNCHXL_tirtos_ccs.out"
 
 dependents:
-	-cd /home/mike/Master_CC13xx/tirtos_builds_CC1310_LAUNCHXL_release_ccs/Debug && $(MAKE) all
+	-cd /home/mike/Documents/Exjobb/Master-thesis/Sub1GHz/Master_CC13xx/tirtos_builds_CC1310_LAUNCHXL_release_ccs/Debug && $(MAKE) all
 
 # Tool invocations
-rfWsnConcentrator_CC1310_LAUNCHXL_tirtos_ccs.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS) /home/mike/Master_CC13xx/tirtos_builds_CC1310_LAUNCHXL_release_ccs/Debug/tirtos_builds_CC1310_LAUNCHXL_release_ccs.lib
+rfWsnConcentrator_CC1310_LAUNCHXL_tirtos_ccs.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS) /home/mike/Documents/Exjobb/Master-thesis/Sub1GHz/Master_CC13xx/tirtos_builds_CC1310_LAUNCHXL_release_ccs/Debug/tirtos_builds_CC1310_LAUNCHXL_release_ccs.lib
 	@echo 'Building target: $@'
 	@echo 'Invoking: ARM Linker'
 	"/opt/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/bin/armcl" -mv7M3 --code_state=16 --float_support=vfplib -me --define=BOARD_DISPLAY_USE_LCD=1 --define=DEVICE_FAMILY=cc13x0 -g --diag_warning=225 --diag_warning=255 --diag_wrap=off --display_error_number --gen_func_subsections=on -z -m"rfWsnConcentrator_CC1310_LAUNCHXL_tirtos_ccs.map" -i"/opt/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/lib" -i"/opt/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="rfWsnConcentrator_CC1310_LAUNCHXL_tirtos_ccs_linkInfo.xml" --rom_model -o "rfWsnConcentrator_CC1310_LAUNCHXL_tirtos_ccs.out" $(ORDERED_OBJS)
@@ -180,7 +180,7 @@ clean:
 
 .PHONY: all clean dependents
 .SECONDARY:
-/home/mike/Master_CC13xx/tirtos_builds_CC1310_LAUNCHXL_release_ccs/Debug/tirtos_builds_CC1310_LAUNCHXL_release_ccs.lib:
+/home/mike/Documents/Exjobb/Master-thesis/Sub1GHz/Master_CC13xx/tirtos_builds_CC1310_LAUNCHXL_release_ccs/Debug/tirtos_builds_CC1310_LAUNCHXL_release_ccs.lib:
 
 -include ../makefile.targets
 

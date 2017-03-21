@@ -213,6 +213,7 @@ NodeTask.obj: /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/sourc
 NodeTask.obj: /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/source/ti/devices/cc13x0/driverlib/../inc/hw_gpio.h
 NodeTask.obj: ../NodeTask.h
 NodeTask.obj: ../NodeRadioTask.h
+NodeTask.obj: /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/kernel/tirtos/packages/ti/sysbios/knl/Event.h
 
 ../NodeTask.c: 
 /opt/ti/xdctools_3_32_01_22_core/packages/xdc/std.h: 
@@ -427,3 +428,4 @@ NodeTask.obj: ../NodeRadioTask.h
 /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/source/ti/devices/cc13x0/driverlib/../inc/hw_gpio.h: 
 ../NodeTask.h: 
 ../NodeRadioTask.h: 
+/home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/kernel/tirtos/packages/ti/sysbios/knl/Event.h: 
