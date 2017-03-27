@@ -175,6 +175,20 @@ static void packetReceivedCallback(union ConcentratorPacket* packet, int8_t rssi
     /* If we recived an ADC sensor packet, for backward compatibility */
     if (packet->msgType == MSG_TYPE_DATA)
     {
+        uint8_t i;
+
+        // Blink Green LED 5 times when data received
+
+        for(i = 0; i < 5; i++) {
+            GPIO_toggle(Board_GPIO_LED0);
+
+            CPUdelay(10000000);
+
+            GPIO_toggle(Board_GPIO_LED0);
+
+            CPUdelay(10000000);
+        }
+
         /* Save the values */
         latestActiveAdcSensorNode.address = packet->nodeInfo.address;
         latestActiveAdcSensorNode.latestAdcValue = packet->adcSensorPacket.adcValue;
@@ -186,6 +200,20 @@ static void packetReceivedCallback(union ConcentratorPacket* packet, int8_t rssi
     /* If we received a DualMode ADC sensor packet*/
     else if(packet->msgType == MSG_TYPE_DM_SENSOR_DATA)
     {
+        uint8_t i;
+
+        // Blink Green LED 5 times when data received
+
+        for(i = 0; i < 5; i++) {
+            GPIO_toggle(Board_GPIO_LED0);
+
+            CPUdelay(10000000);
+
+            GPIO_toggle(Board_GPIO_LED0);
+
+            CPUdelay(10000000);
+        }
+
 
         /* Save the values */
         latestActiveAdcSensorNode.address = packet->nodeInfo.address;
@@ -194,6 +222,22 @@ static void packetReceivedCallback(union ConcentratorPacket* packet, int8_t rssi
         latestActiveAdcSensorNode.latestRssi = rssi;
 
         Event_post(concentratorEventHandle, CONCENTRATOR_EVENT_NEW_ADC_SENSOR_VALUE);
+    }
+    else if(packet->msgType == MSG_TYPE_NEW_UNIT)
+    {
+        uint8_t i;
+
+        // Blink Red LED 5 times when new unit is added
+
+        for(i = 0; i < 5; i++) {
+            GPIO_toggle(Board_GPIO_LED1);
+
+            CPUdelay(10000000);
+
+            GPIO_toggle(Board_GPIO_LED1);
+
+            CPUdelay(10000000);
+        }
     }
 }
 
