@@ -1,0 +1,34 @@
+
+**** Build of configuration Debug for project uartecho_CC1310_LAUNCHXL_TI_CC1310F128 ****
+
+"C:\\ti\\ccsv7\\utils\\bin\\gmake" -k -j 4 all -O 
+making ../src/sysbios/rom_sysbios.aem3 ...
+gmake[1]: Nothing to be done for 'all'.
+'Building file: ../uartecho.c'
+'Invoking: ARM Compiler'
+"C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/bin/armcl" -mv7M3 --code_state=16 --float_support=vfplib -me --include_path="C:/Users/Tom/safe3/workspace_v7_27/uartecho_CC1310_LAUNCHXL_TI_CC1310F128" --include_path="C:/ti/tirex-content/tirtos_cc13xx_cc26xx_2_21_00_06/products/cc13xxware_2_04_03_17272" --include_path="C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/include" --define=ccs -g --diag_warning=225 --diag_warning=255 --diag_wrap=off --display_error_number --gen_func_subsections=on --abi=eabi --preproc_with_compile --preproc_dependency="uartecho.d" --cmd_file="configPkg/compiler.opt" "../uartecho.c"
+"../uartecho.c", line 75: warning #179-D: variable "ledPinState2" was declared but never referenced
+'Finished building: ../uartecho.c'
+' '
+making ../src/sysbios/rom_sysbios.aem3 ...
+gmake[2]: Nothing to be done for 'all'.
+'Building target: uartecho_CC1310_LAUNCHXL_TI_CC1310F128.out'
+'Invoking: ARM Linker'
+"C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/bin/armcl" -mv7M3 --code_state=16 --float_support=vfplib -me --define=ccs -g --diag_warning=225 --diag_warning=255 --diag_wrap=off --display_error_number --gen_func_subsections=on --abi=eabi -z -m"uartecho_CC1310_LAUNCHXL_TI_CC1310F128.map" --heap_size=0 --stack_size=256 -i"C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/lib" -i"C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="uartecho_CC1310_LAUNCHXL_TI_CC1310F128_linkInfo.xml" --rom_model -o "uartecho_CC1310_LAUNCHXL_TI_CC1310F128.out" "./CC1310_LAUNCHXL.obj" "./ccfg.obj" "./uartecho.obj" "../CC1310_LAUNCHXL.cmd" -l"configPkg/linker.cmd" -l"C:/ti/tirex-content/tirtos_cc13xx_cc26xx_2_21_00_06/products/cc13xxware_2_04_03_17272/driverlib/bin/ccs/driverlib.lib" -llibc.a 
+<Linking>
+
+ undefined         first referenced                                                                                                                                                
+  symbol               in file                                                                                                                                                     
+ ---------         ----------------                                                                                                                                                
+ GPIOCC26XX_config C:/ti/tirex-content/tirtos_cc13xx_cc26xx_2_21_00_06/products/tidrivers_cc13xx_cc26xx_2_21_00_04/packages/ti/drivers/lib/drivers_cc13xxware.aem3<GPIOCC26XX.oem3>
+
+error #10234-D: unresolved symbols remain
+error #10010: errors encountered during linking; "uartecho_CC1310_LAUNCHXL_TI_CC1310F128.out" not built
+
+>> Compilation failure
+makefile:144: recipe for target 'uartecho_CC1310_LAUNCHXL_TI_CC1310F128.out' failed
+gmake[1]: *** [uartecho_CC1310_LAUNCHXL_TI_CC1310F128.out] Error 1
+makefile:140: recipe for target 'all' failed
+gmake: *** [all] Error 2
+
+**** Build Finished ****
