@@ -1,0 +1,8 @@
+
+**** Build of configuration Debug for project ProjectZeroStack_CC2650LAUNCHXL ****
+
+"C:\\ti\\ccsv7\\utils\\bin\\gmake" -k -j 4 all -O 
+gmake[1]: 'ProjectZeroStack_CC2650LAUNCHXL.out' is up to date.
+gmake[1]: Nothing to be done for 'secondary-outputs'.
+
+**** Build Finished ****

@@ -1,0 +1,380 @@
+
+**** Build of configuration Debug for project ProjectZeroStack_CC2650LAUNCHXL ****
+
+"C:\\ti\\ccsv7\\utils\\bin\\gmake" -k -j 4 all -O 
+gmake[1]: 'ProjectZeroStack_CC2650LAUNCHXL.out' is up to date.
+gmake[1]: Nothing to be done for 'secondary-outputs'.
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project ProjectZeroApp_CC2650LAUNCHXL ****
+
+"C:\\ti\\ccsv7\\utils\\bin\\gmake" -k -j 4 all -O 
+'Building file: ../Application/uartBridge.c'
+'Invoking: ARM Compiler'
+"C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/bin/armcl" -mv7M3 --code_state=16 -me -O3 --opt_for_speed=0 --include_path="C:/Users/Tom/test3/workspace_v7_17/ProjectZeroApp_CC2650LAUNCHXL/Profiles" --include_path="C:/Users/Tom/test3/workspace_v7_17/ProjectZeroApp_CC2650LAUNCHXL/Application" --include_path="C:/Users/Tom/test3/workspace_v7_17/ProjectZeroApp_CC2650LAUNCHXL/ICallBLE" --include_path="C:/Users/Tom/test3/workspace_v7_17/ProjectZeroApp_CC2650LAUNCHXL/Startup" --include_path="C:/ti/tirex-content/simplelink/ble_cc26xx_2_01_00_44423_cloud/Projects/ble/Profiles/DevInfo" --include_path="C:/ti/tirex-content/simplelink/ble_cc26xx_2_01_00_44423_cloud/Projects/ble/ProjectZero/CC26xx/Source/Application" --include_path="C:/ti/tirex-content/simplelink/ble_cc26xx_2_01_00_44423_cloud/Components/uart_log" --include_path="C:/ti/tirex-content/simplelink/ble_cc26xx_2_01_00_44423_cloud/Components/applib/heap" --include_path="C:/ti/tirex-content/simplelink/ble_cc26xx_2_01_00_44423_cloud/Components/services/sdata" --include_path="C:/ti/tirex-content/simplelink/ble_cc26xx_2_01_00_44423_cloud/Projects/ble/Profiles/Roles/CC26xx" --include_path="C:/ti/tirex-content/tirtos_simplelink_2_13_00_06/products/cc26xxware_2_21_01_15600" --include_path="C:/ti/tirex-content/simplelink/ble_cc26xx_2_01_00_44423_cloud/Components/ble/controller/CC26xx/include" --include_path="C:/ti/tirex-content/simplelink/ble_cc26xx_2_01_00_44423_cloud/Components/ble/hci" --include_path="C:/ti/tirex-content/simplelink/ble_cc26xx_2_01_00_44423_cloud/Components/ble/host" --include_path="C:/ti/tirex-content/simplelink/ble_cc26xx_2_01_00_44423_cloud/Components/ble/include" --include_path="C:/ti/tirex-content/simplelink/ble_cc26xx_2_01_00_44423_cloud/Components/hal/include" --include_path="C:/ti/tirex-content/simplelink/ble_cc26xx_2_01_00_44423_cloud/Components/hal/target/CC2650TIRTOS" --include_path="C:/ti/tirex-content/simplelink/ble_cc26xx_2_01_00_44423_cloud/Components/hal/target/_common/cc26xx" --include_path="C:/ti/tirex-content/simplelink/ble_cc26xx_2_01_00_44423_cloud/Components/icall/include" --include_path="C:/ti/tirex-content/simplelink/ble_cc26xx_2_01_00_44423_cloud/Components/osal/include" --include_path="C:/ti/tirex-content/simplelink/ble_cc26xx_2_01_00_44423_cloud/Components/services/saddr" --include_path="C:/ti/tirex-content/simplelink/ble_cc26xx_2_01_00_44423_cloud/Projects/ble/ICall/Include" --include_path="C:/ti/tirex-content/simplelink/ble_cc26xx_2_01_00_44423_cloud/Projects/ble/Include" --include_path="C:/ti/tirex-content/simplelink/ble_cc26xx_2_01_00_44423_cloud/Projects/ble/Profiles/Roles" --include_path="C:/ti/tirex-content/simplelink/ble_cc26xx_2_01_00_44423_cloud/Projects/ble/common/cc26xx" --include_path="C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/include" --define=CC26XX --define=CC26XXWARE --define=USE_ICALL --define=xdc_runtime_Assert_DISABLE_ALL --define=Xxdc_runtime_Log_DISABLE_ALL --define=POWER_SAVING --define=DEBUG --define=HEAPMGR_SIZE=3000 --define=ICALL_MAX_NUM_ENTITIES=6 --define=ICALL_RAM0_ADDR=0x200043E8 --define=ICALL_STACK0_ADDR=0x0000E000 --define=MAX_NUM_BLE_CONNS=1 --define=ccs --define=GAPROLE_TASK_STACK_SIZE=520 --define=ICALL_MAX_NUM_TASKS=3 --define=xdc_FILE="\"uartBridge.c\"" --define=UARTLOG_NUM_EVT_BUF=32 -g --gcc --diag_warning=225 --diag_warning=255 --diag_wrap=off --display_error_number --gen_func_subsections=on --abi=eabi --preproc_with_compile --preproc_dependency="Application/uartBridge.d" --obj_directory="Application" --cmd_file="configPkg/compiler.opt" "../Application/uartBridge.c"
+'Finished building: ../Application/uartBridge.c'
+' '
+'Building target: ProjectZeroApp_CC2650LAUNCHXL.out'
+'Invoking: ARM Linker'
+"C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/bin/armcl" -mv7M3 --code_state=16 -me -O3 --opt_for_speed=0 --define=CC26XX --define=CC26XXWARE --define=USE_ICALL --define=xdc_runtime_Assert_DISABLE_ALL --define=Xxdc_runtime_Log_DISABLE_ALL --define=POWER_SAVING --define=DEBUG --define=HEAPMGR_SIZE=3000 --define=ICALL_MAX_NUM_ENTITIES=6 --define=ICALL_RAM0_ADDR=0x200043E8 --define=ICALL_STACK0_ADDR=0x0000E000 --define=MAX_NUM_BLE_CONNS=1 --define=ccs --define=GAPROLE_TASK_STACK_SIZE=520 --define=ICALL_MAX_NUM_TASKS=3 --define=xdc_FILE="\"\"" --define=UARTLOG_NUM_EVT_BUF=32 -g --gcc --diag_warning=225 --diag_warning=255 --diag_wrap=off --display_error_number --gen_func_subsections=on --abi=eabi -z -m"ProjectZeroApp_CC2650LAUNCHXL.map" --heap_size=0 --stack_size=256 -i"C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/lib" -i"C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/include" --reread_libs --define=ICALL_STACK0_ADDR=0x0000E000 --define=ICALL_RAM0_ADDR=0x200043E8 --diag_wrap=off --display_error_number --warn_sections --xml_link_info="ProjectZeroApp_CC2650LAUNCHXL_linkInfo.xml" --rom_model -o "ProjectZeroApp_CC2650LAUNCHXL.out" "./Application/ProjectZero.obj" "./Application/uartBridge.obj" "./ICall/ICall.obj" "./ICall/ICallCC2650.obj" "./ICallBLE/ICallBleAPI.obj" "./ICallBLE/bleUserConfig.obj" "./Profiles/Button_Service.obj" "./Profiles/Data_Service.obj" "./Profiles/LED_Service.obj" "./Profiles/TEST_Service.obj" "./Profiles/devinfoservice.obj" "./Profiles/gatt_uuid.obj" "./Profiles/gattservapp_util.obj" "./Profiles/peripheral.obj" "./Startup/CC2650_LAUNCHXL.obj" "./Startup/ccfg_appBLE.obj" "./Startup/main.obj" "./Utils/uart_logs.obj" "./Utils/util.obj" "C:/ti/tirex-content/simplelink/ble_cc26xx_2_01_00_44423_cloud/Projects/ble/common/cc26xx/CCS/cc26xx_ble_app.cmd" -l"configPkg/linker.cmd" -l"C:/ti/tirex-content/tirtos_simplelink_2_13_00_06/packages/ti/drivers/lib/drivers_cc26xxware.aem3" -l"C:/ti/tirex-content/tirtos_simplelink_2_13_00_06/products/cc26xxware_2_21_01_15600/driverlib/bin/ccs/driverlib.lib" -llibc.a 
+<Linking>
+'Finished building target: ProjectZeroApp_CC2650LAUNCHXL.out'
+' '
+'Invoking: ARM Hex Utility'
+"C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/bin/armhex" --memwidth=8 --romwidth=8 --intel -o "ProjectZeroApp_CC2650LAUNCHXL.hex"  "ProjectZeroApp_CC2650LAUNCHXL.out" 
+Translating to Intel format...
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .resetVecs ==> .resetVecs
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .text.1 ==> .text.1
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Task_Object__PARAMS__C ==> .const:ti_sysbios_knl_Task_Object__PARAMS__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Mailbox_Object__PARAMS__C ==> .const:ti_sysbios_knl_Mailbox_Object__PARAMS__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_family_arm_m3_Hwi_Object__PARAMS__C ==> .const:ti_sysbios_family_arm_m3_Hwi_Object__PARAMS__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_hal_Hwi_Object__PARAMS__C ==> .const:ti_sysbios_hal_Hwi_Object__PARAMS__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_heaps_HeapMem_Module__FXNS__C ==> .const:ti_sysbios_heaps_HeapMem_Module__FXNS__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Swi_Object__PARAMS__C ==> .const:ti_sysbios_knl_Swi_Object__PARAMS__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_gates_GateHwi_Module__FXNS__C ==> .const:ti_sysbios_gates_GateHwi_Module__FXNS__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_gates_GateMutex_Module__FXNS__C ==> .const:ti_sysbios_gates_GateMutex_Module__FXNS__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_heaps_HeapMem_Object__PARAMS__C ==> .const:ti_sysbios_heaps_HeapMem_Object__PARAMS__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Clock_Object__PARAMS__C ==> .const:ti_sysbios_knl_Clock_Object__PARAMS__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Semaphore_Object__PARAMS__C ==> .const:ti_sysbios_knl_Semaphore_Object__PARAMS__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_family_arm_m3_Hwi_Object__DESC__C ==> .const:ti_sysbios_family_arm_m3_Hwi_Object__DESC__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_gates_GateHwi_Object__DESC__C ==> .const:ti_sysbios_gates_GateHwi_Object__DESC__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_gates_GateMutex_Object__DESC__C ==> .const:ti_sysbios_gates_GateMutex_Object__DESC__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_hal_Hwi_Object__DESC__C ==> .const:ti_sysbios_hal_Hwi_Object__DESC__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_heaps_HeapMem_Object__DESC__C ==> .const:ti_sysbios_heaps_HeapMem_Object__DESC__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Clock_Object__DESC__C ==> .const:ti_sysbios_knl_Clock_Object__DESC__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Mailbox_Object__DESC__C ==> .const:ti_sysbios_knl_Mailbox_Object__DESC__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Queue_Object__DESC__C ==> .const:ti_sysbios_knl_Queue_Object__DESC__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Semaphore_Object__DESC__C ==> .const:ti_sysbios_knl_Semaphore_Object__DESC__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Swi_Object__DESC__C ==> .const:ti_sysbios_knl_Swi_Object__DESC__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Task_Object__DESC__C ==> .const:ti_sysbios_knl_Task_Object__DESC__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_gates_GateHwi_Object__PARAMS__C ==> .const:ti_sysbios_gates_GateHwi_Object__PARAMS__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_gates_GateMutex_Object__PARAMS__C ==> .const:ti_sysbios_gates_GateMutex_Object__PARAMS__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Queue_Object__PARAMS__C ==> .const:ti_sysbios_knl_Queue_Object__PARAMS__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Idle_funcList__C ==> .const:ti_sysbios_knl_Idle_funcList__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .text.2 ==> .text.2
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_family_arm_cc26xx_Timer_startupNeeded__C ==> .const:ti_sysbios_family_arm_cc26xx_Timer_startupNeeded__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_family_arm_m3_Hwi_E_alreadyDefined__C ==> .const:ti_sysbios_family_arm_m3_Hwi_E_alreadyDefined__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_family_arm_m3_Hwi_E_hwiLimitExceeded__C ==> .const:ti_sysbios_family_arm_m3_Hwi_E_hwiLimitExceeded__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_family_arm_m3_Hwi_NUM_INTERRUPTS__C ==> .const:ti_sysbios_family_arm_m3_Hwi_NUM_INTERRUPTS__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_family_arm_m3_Hwi_Object__count__C ==> .const:ti_sysbios_family_arm_m3_Hwi_Object__count__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_family_arm_m3_Hwi_Object__table__C ==> .const:ti_sysbios_family_arm_m3_Hwi_Object__table__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_family_arm_m3_Hwi_ccr__C ==> .const:ti_sysbios_family_arm_m3_Hwi_ccr__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_family_arm_m3_Hwi_excHandlerFunc__C ==> .const:ti_sysbios_family_arm_m3_Hwi_excHandlerFunc__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_family_arm_m3_Hwi_nullIsrFunc__C ==> .const:ti_sysbios_family_arm_m3_Hwi_nullIsrFunc__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_family_arm_m3_Hwi_numSparseInterrupts__C ==> .const:ti_sysbios_family_arm_m3_Hwi_numSparseInterrupts__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_family_arm_m3_Hwi_priGroup__C ==> .const:ti_sysbios_family_arm_m3_Hwi_priGroup__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_family_arm_m3_TaskSupport_stackAlignment__C ==> .const:ti_sysbios_family_arm_m3_TaskSupport_stackAlignment__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_heaps_HeapMem_E_memory__C ==> .const:ti_sysbios_heaps_HeapMem_E_memory__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_heaps_HeapMem_Module__gateObj__C ==> .const:ti_sysbios_heaps_HeapMem_Module__gateObj__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_heaps_HeapMem_Object__count__C ==> .const:ti_sysbios_heaps_HeapMem_Object__count__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_heaps_HeapMem_Object__table__C ==> .const:ti_sysbios_heaps_HeapMem_Object__table__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_heaps_HeapMem_reqAlign__C ==> .const:ti_sysbios_heaps_HeapMem_reqAlign__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Clock_serviceMargin__C ==> .const:ti_sysbios_knl_Clock_serviceMargin__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Mailbox_Object__count__C ==> .const:ti_sysbios_knl_Mailbox_Object__count__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Mailbox_Object__table__C ==> .const:ti_sysbios_knl_Mailbox_Object__table__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Queue_Object__count__C ==> .const:ti_sysbios_knl_Queue_Object__count__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Queue_Object__table__C ==> .const:ti_sysbios_knl_Queue_Object__table__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Swi_Object__count__C ==> .const:ti_sysbios_knl_Swi_Object__count__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Swi_Object__table__C ==> .const:ti_sysbios_knl_Swi_Object__table__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Swi_numPriorities__C ==> .const:ti_sysbios_knl_Swi_numPriorities__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Task_Object__count__C ==> .const:ti_sysbios_knl_Task_Object__count__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Task_Object__table__C ==> .const:ti_sysbios_knl_Task_Object__table__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Task_allBlockedFunc__C ==> .const:ti_sysbios_knl_Task_allBlockedFunc__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Task_defaultStackHeap__C ==> .const:ti_sysbios_knl_Task_defaultStackHeap__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Task_defaultStackSize__C ==> .const:ti_sysbios_knl_Task_defaultStackSize__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Task_numConstructedTasks__C ==> .const:ti_sysbios_knl_Task_numConstructedTasks__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .text.3 ==> .text.3
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_family_arm_cc26xx_Timer_Module__id__C ==> .const:ti_sysbios_family_arm_cc26xx_Timer_Module__id__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_family_arm_cc26xx_TimestampProvider_useClockTimer__C ==> .const:ti_sysbios_family_arm_cc26xx_TimestampProvider_useClockTimer__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_family_arm_m3_Hwi_Module__id__C ==> .const:ti_sysbios_family_arm_m3_Hwi_Module__id__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_gates_GateHwi_Module__id__C ==> .const:ti_sysbios_gates_GateHwi_Module__id__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_gates_GateMutex_Module__id__C ==> .const:ti_sysbios_gates_GateMutex_Module__id__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_heaps_HeapMem_Module__id__C ==> .const:ti_sysbios_heaps_HeapMem_Module__id__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Task_initStackFlag__C ==> .const:ti_sysbios_knl_Task_initStackFlag__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Clock_tickMode__C ==> .const:ti_sysbios_knl_Clock_tickMode__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:xdc_runtime_Startup_firstFxns__C ==> .const:xdc_runtime_Startup_firstFxns__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:xdc_runtime_Startup_lastFxns__C ==> .const:xdc_runtime_Startup_lastFxns__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:xdc_runtime_Assert_E_assertFailed__C ==> .const:xdc_runtime_Assert_E_assertFailed__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:xdc_runtime_Error_E_memory__C ==> .const:xdc_runtime_Error_E_memory__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:xdc_runtime_Error_policyFxn__C ==> .const:xdc_runtime_Error_policyFxn__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:xdc_runtime_IGateProvider_Interface__BASE__C ==> .const:xdc_runtime_IGateProvider_Interface__BASE__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:xdc_runtime_IHeap_Interface__BASE__C ==> .const:xdc_runtime_IHeap_Interface__BASE__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:xdc_runtime_IModule_Interface__BASE__C ==> .const:xdc_runtime_IModule_Interface__BASE__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:xdc_runtime_Main_Module__diagsEnabled__C ==> .const:xdc_runtime_Main_Module__diagsEnabled__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:xdc_runtime_Main_Module__diagsIncluded__C ==> .const:xdc_runtime_Main_Module__diagsIncluded__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:xdc_runtime_Main_Module__diagsMask__C ==> .const:xdc_runtime_Main_Module__diagsMask__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:xdc_runtime_Memory_defaultHeapInstance__C ==> .const:xdc_runtime_Memory_defaultHeapInstance__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:xdc_runtime_Startup_execImpl__C ==> .const:xdc_runtime_Startup_execImpl__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:xdc_runtime_Startup_maxPasses__C ==> .const:xdc_runtime_Startup_maxPasses__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:xdc_runtime_Startup_sfxnRts__C ==> .const:xdc_runtime_Startup_sfxnRts__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:xdc_runtime_Startup_sfxnTab__C ==> .const:xdc_runtime_Startup_sfxnTab__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:xdc_runtime_Startup_startModsFxn__C ==> .const:xdc_runtime_Startup_startModsFxn__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:xdc_runtime_SysCallback_abortFxn__C ==> .const:xdc_runtime_SysCallback_abortFxn__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:xdc_runtime_SysCallback_exitFxn__C ==> .const:xdc_runtime_SysCallback_exitFxn__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:xdc_runtime_System_abortFxn__C ==> .const:xdc_runtime_System_abortFxn__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:xdc_runtime_System_exitFxn__C ==> .const:xdc_runtime_System_exitFxn__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:xdc_runtime_System_maxAtexitHandlers__C ==> .const:xdc_runtime_System_maxAtexitHandlers__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:xdc_runtime_Text_charTab__C ==> .const:xdc_runtime_Text_charTab__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:xdc_runtime_Text_nameEmpty__C ==> .const:xdc_runtime_Text_nameEmpty__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:xdc_runtime_Text_nameStatic__C ==> .const:xdc_runtime_Text_nameStatic__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:xdc_runtime_Text_nameUnknown__C ==> .const:xdc_runtime_Text_nameUnknown__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:xdc_runtime_Main_Module__id__C ==> .const:xdc_runtime_Main_Module__id__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:xdc_runtime_Memory_Module__id__C ==> .const:xdc_runtime_Memory_Module__id__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:xdc_runtime_Text_charCnt__C ==> .const:xdc_runtime_Text_charCnt__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:xdc_runtime_Text_isLoaded__C ==> .const:xdc_runtime_Text_isLoaded__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:xdc_runtime_Error_policy__C ==> .const:xdc_runtime_Error_policy__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_rom_ROM_AONRTCChannelEnable ==> .const:ti_sysbios_rom_ROM_AONRTCChannelEnable
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_rom_ROM_AONRTCCompareValueSet ==> .const:ti_sysbios_rom_ROM_AONRTCCompareValueSet
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_rom_ROM_AONRTCCurrentCompareValueGet ==> .const:ti_sysbios_rom_ROM_AONRTCCurrentCompareValueGet
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_rom_ROM_AONRTCEventClear ==> .const:ti_sysbios_rom_ROM_AONRTCEventClear
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_rom_ROM_ti_sysbios_family_arm_cc26xx_Timer_getCount64__E ==> .const:ti_sysbios_rom_ROM_ti_sysbios_family_arm_cc26xx_Timer_getCount64__E
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_rom_ROM_ti_sysbios_family_arm_cc26xx_Timer_getCurrentTick__E ==> .const:ti_sysbios_rom_ROM_ti_sysbios_family_arm_cc26xx_Timer_getCurrentTick__E
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_rom_ROM_ti_sysbios_family_arm_cc26xx_Timer_getMaxTicks__E ==> .const:ti_sysbios_rom_ROM_ti_sysbios_family_arm_cc26xx_Timer_getMaxTicks__E
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_rom_ROM_ti_sysbios_family_arm_cc26xx_Timer_initDevice__I ==> .const:ti_sysbios_rom_ROM_ti_sysbios_family_arm_cc26xx_Timer_initDevice__I
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_rom_ROM_ti_sysbios_family_arm_cc26xx_Timer_setNextTick__E ==> .const:ti_sysbios_rom_ROM_ti_sysbios_family_arm_cc26xx_Timer_setNextTick__E
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_rom_ROM_ti_sysbios_family_arm_cc26xx_Timer_setThreshold__I ==> .const:ti_sysbios_rom_ROM_ti_sysbios_family_arm_cc26xx_Timer_setThreshold__I
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_rom_ROM_ti_sysbios_family_arm_cc26xx_Timer_start__E ==> .const:ti_sysbios_rom_ROM_ti_sysbios_family_arm_cc26xx_Timer_start__E
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_rom_ROM_ti_sysbios_family_arm_cc26xx_TimestampProvider_get32__E ==> .const:ti_sysbios_rom_ROM_ti_sysbios_family_arm_cc26xx_TimestampProvider_get32__E
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_rom_ROM_xdc_runtime_Startup_getState__I ==> .const:ti_sysbios_rom_ROM_xdc_runtime_Startup_getState__I
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_rom_ROM_xdc_runtime_System_SupportProxy_abort__E ==> .const:ti_sysbios_rom_ROM_xdc_runtime_System_SupportProxy_abort__E
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_rom_ROM_xdc_runtime_System_SupportProxy_exit__E ==> .const:ti_sysbios_rom_ROM_xdc_runtime_System_SupportProxy_exit__E
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_gates_GateMutex_Instance_State_sem__O ==> .const:ti_sysbios_gates_GateMutex_Instance_State_sem__O
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Clock_Module_State_clockQ__O ==> .const:ti_sysbios_knl_Clock_Module_State_clockQ__O
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Mailbox_Instance_State_dataQue__O ==> .const:ti_sysbios_knl_Mailbox_Instance_State_dataQue__O
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Mailbox_Instance_State_dataSem__O ==> .const:ti_sysbios_knl_Mailbox_Instance_State_dataSem__O
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Mailbox_Instance_State_freeQue__O ==> .const:ti_sysbios_knl_Mailbox_Instance_State_freeQue__O
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Mailbox_Instance_State_freeSem__O ==> .const:ti_sysbios_knl_Mailbox_Instance_State_freeSem__O
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Semaphore_Instance_State_pendQ__O ==> .const:ti_sysbios_knl_Semaphore_Instance_State_pendQ__O
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Task_Module_State_inactiveQ__O ==> .const:ti_sysbios_knl_Task_Module_State_inactiveQ__O
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .text.4 ==> .text.4
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const ==> .const
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .cinit ==> .cinit
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .ccfg ==> .ccfg
+'Finished building: ProjectZeroApp_CC2650LAUNCHXL.hex'
+' '
+' '
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project ProjectZeroStack_CC2650LAUNCHXL ****
+
+"C:\\ti\\ccsv7\\utils\\bin\\gmake" -k -j 4 all -O 
+gmake[1]: 'ProjectZeroStack_CC2650LAUNCHXL.out' is up to date.
+gmake[1]: Nothing to be done for 'secondary-outputs'.
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project ProjectZeroStack_CC2650LAUNCHXL ****
+
+"C:\\ti\\ccsv7\\utils\\bin\\gmake" -k -j 4 all -O 
+gmake[1]: 'ProjectZeroStack_CC2650LAUNCHXL.out' is up to date.
+gmake[1]: Nothing to be done for 'secondary-outputs'.
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project ProjectZeroApp_CC2650LAUNCHXL ****
+
+"C:\\ti\\ccsv7\\utils\\bin\\gmake" -k -j 4 all -O 
+gmake[1]: 'ProjectZeroApp_CC2650LAUNCHXL.out' is up to date.
+gmake[1]: Nothing to be done for 'secondary-outputs'.
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project ProjectZeroStack_CC2650LAUNCHXL ****
+
+"C:\\ti\\ccsv7\\utils\\bin\\gmake" -k -j 4 all -O 
+gmake[1]: 'ProjectZeroStack_CC2650LAUNCHXL.out' is up to date.
+gmake[1]: Nothing to be done for 'secondary-outputs'.
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project ProjectZeroStack_CC2650LAUNCHXL ****
+
+"C:\\ti\\ccsv7\\utils\\bin\\gmake" -k -j 4 all -O 
+gmake[1]: 'ProjectZeroStack_CC2650LAUNCHXL.out' is up to date.
+gmake[1]: Nothing to be done for 'secondary-outputs'.
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project ProjectZeroApp_CC2650LAUNCHXL ****
+
+"C:\\ti\\ccsv7\\utils\\bin\\gmake" -k -j 4 all -O 
+'Building file: ../Application/uartBridge.c'
+'Invoking: ARM Compiler'
+"C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/bin/armcl" -mv7M3 --code_state=16 -me -O3 --opt_for_speed=0 --include_path="C:/Users/Tom/test3/workspace_v7_17/ProjectZeroApp_CC2650LAUNCHXL/Profiles" --include_path="C:/Users/Tom/test3/workspace_v7_17/ProjectZeroApp_CC2650LAUNCHXL/Application" --include_path="C:/Users/Tom/test3/workspace_v7_17/ProjectZeroApp_CC2650LAUNCHXL/ICallBLE" --include_path="C:/Users/Tom/test3/workspace_v7_17/ProjectZeroApp_CC2650LAUNCHXL/Startup" --include_path="C:/ti/tirex-content/simplelink/ble_cc26xx_2_01_00_44423_cloud/Projects/ble/Profiles/DevInfo" --include_path="C:/ti/tirex-content/simplelink/ble_cc26xx_2_01_00_44423_cloud/Projects/ble/ProjectZero/CC26xx/Source/Application" --include_path="C:/ti/tirex-content/simplelink/ble_cc26xx_2_01_00_44423_cloud/Components/uart_log" --include_path="C:/ti/tirex-content/simplelink/ble_cc26xx_2_01_00_44423_cloud/Components/applib/heap" --include_path="C:/ti/tirex-content/simplelink/ble_cc26xx_2_01_00_44423_cloud/Components/services/sdata" --include_path="C:/ti/tirex-content/simplelink/ble_cc26xx_2_01_00_44423_cloud/Projects/ble/Profiles/Roles/CC26xx" --include_path="C:/ti/tirex-content/tirtos_simplelink_2_13_00_06/products/cc26xxware_2_21_01_15600" --include_path="C:/ti/tirex-content/simplelink/ble_cc26xx_2_01_00_44423_cloud/Components/ble/controller/CC26xx/include" --include_path="C:/ti/tirex-content/simplelink/ble_cc26xx_2_01_00_44423_cloud/Components/ble/hci" --include_path="C:/ti/tirex-content/simplelink/ble_cc26xx_2_01_00_44423_cloud/Components/ble/host" --include_path="C:/ti/tirex-content/simplelink/ble_cc26xx_2_01_00_44423_cloud/Components/ble/include" --include_path="C:/ti/tirex-content/simplelink/ble_cc26xx_2_01_00_44423_cloud/Components/hal/include" --include_path="C:/ti/tirex-content/simplelink/ble_cc26xx_2_01_00_44423_cloud/Components/hal/target/CC2650TIRTOS" --include_path="C:/ti/tirex-content/simplelink/ble_cc26xx_2_01_00_44423_cloud/Components/hal/target/_common/cc26xx" --include_path="C:/ti/tirex-content/simplelink/ble_cc26xx_2_01_00_44423_cloud/Components/icall/include" --include_path="C:/ti/tirex-content/simplelink/ble_cc26xx_2_01_00_44423_cloud/Components/osal/include" --include_path="C:/ti/tirex-content/simplelink/ble_cc26xx_2_01_00_44423_cloud/Components/services/saddr" --include_path="C:/ti/tirex-content/simplelink/ble_cc26xx_2_01_00_44423_cloud/Projects/ble/ICall/Include" --include_path="C:/ti/tirex-content/simplelink/ble_cc26xx_2_01_00_44423_cloud/Projects/ble/Include" --include_path="C:/ti/tirex-content/simplelink/ble_cc26xx_2_01_00_44423_cloud/Projects/ble/Profiles/Roles" --include_path="C:/ti/tirex-content/simplelink/ble_cc26xx_2_01_00_44423_cloud/Projects/ble/common/cc26xx" --include_path="C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/include" --define=CC26XX --define=CC26XXWARE --define=USE_ICALL --define=xdc_runtime_Assert_DISABLE_ALL --define=Xxdc_runtime_Log_DISABLE_ALL --define=POWER_SAVING --define=DEBUG --define=HEAPMGR_SIZE=3000 --define=ICALL_MAX_NUM_ENTITIES=6 --define=ICALL_RAM0_ADDR=0x200043E8 --define=ICALL_STACK0_ADDR=0x0000E000 --define=MAX_NUM_BLE_CONNS=1 --define=ccs --define=GAPROLE_TASK_STACK_SIZE=520 --define=ICALL_MAX_NUM_TASKS=3 --define=xdc_FILE="\"uartBridge.c\"" --define=UARTLOG_NUM_EVT_BUF=32 -g --gcc --diag_warning=225 --diag_warning=255 --diag_wrap=off --display_error_number --gen_func_subsections=on --abi=eabi --preproc_with_compile --preproc_dependency="Application/uartBridge.d" --obj_directory="Application" --cmd_file="configPkg/compiler.opt" "../Application/uartBridge.c"
+
+>> Compilation failure
+Application/subdir_rules.mk:16: recipe for target 'Application/uartBridge.obj' failed
+"../Application/uartBridge.c", line 84: error #20: identifier "i" is undefined
+1 error detected in the compilation of "../Application/uartBridge.c".
+gmake: *** [Application/uartBridge.obj] Error 1
+gmake: Target 'all' not remade because of errors.
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project ProjectZeroStack_CC2650LAUNCHXL ****
+
+"C:\\ti\\ccsv7\\utils\\bin\\gmake" -k -j 4 all -O 
+gmake[1]: 'ProjectZeroStack_CC2650LAUNCHXL.out' is up to date.
+gmake[1]: Nothing to be done for 'secondary-outputs'.
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project ProjectZeroStack_CC2650LAUNCHXL ****
+
+"C:\\ti\\ccsv7\\utils\\bin\\gmake" -k -j 4 all -O 
+gmake[1]: 'ProjectZeroStack_CC2650LAUNCHXL.out' is up to date.
+gmake[1]: Nothing to be done for 'secondary-outputs'.
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project ProjectZeroApp_CC2650LAUNCHXL ****
+
+"C:\\ti\\ccsv7\\utils\\bin\\gmake" -k -j 4 all -O 
+'Building file: ../Application/uartBridge.c'
+'Invoking: ARM Compiler'
+"C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/bin/armcl" -mv7M3 --code_state=16 -me -O3 --opt_for_speed=0 --include_path="C:/Users/Tom/test3/workspace_v7_17/ProjectZeroApp_CC2650LAUNCHXL/Profiles" --include_path="C:/Users/Tom/test3/workspace_v7_17/ProjectZeroApp_CC2650LAUNCHXL/Application" --include_path="C:/Users/Tom/test3/workspace_v7_17/ProjectZeroApp_CC2650LAUNCHXL/ICallBLE" --include_path="C:/Users/Tom/test3/workspace_v7_17/ProjectZeroApp_CC2650LAUNCHXL/Startup" --include_path="C:/ti/tirex-content/simplelink/ble_cc26xx_2_01_00_44423_cloud/Projects/ble/Profiles/DevInfo" --include_path="C:/ti/tirex-content/simplelink/ble_cc26xx_2_01_00_44423_cloud/Projects/ble/ProjectZero/CC26xx/Source/Application" --include_path="C:/ti/tirex-content/simplelink/ble_cc26xx_2_01_00_44423_cloud/Components/uart_log" --include_path="C:/ti/tirex-content/simplelink/ble_cc26xx_2_01_00_44423_cloud/Components/applib/heap" --include_path="C:/ti/tirex-content/simplelink/ble_cc26xx_2_01_00_44423_cloud/Components/services/sdata" --include_path="C:/ti/tirex-content/simplelink/ble_cc26xx_2_01_00_44423_cloud/Projects/ble/Profiles/Roles/CC26xx" --include_path="C:/ti/tirex-content/tirtos_simplelink_2_13_00_06/products/cc26xxware_2_21_01_15600" --include_path="C:/ti/tirex-content/simplelink/ble_cc26xx_2_01_00_44423_cloud/Components/ble/controller/CC26xx/include" --include_path="C:/ti/tirex-content/simplelink/ble_cc26xx_2_01_00_44423_cloud/Components/ble/hci" --include_path="C:/ti/tirex-content/simplelink/ble_cc26xx_2_01_00_44423_cloud/Components/ble/host" --include_path="C:/ti/tirex-content/simplelink/ble_cc26xx_2_01_00_44423_cloud/Components/ble/include" --include_path="C:/ti/tirex-content/simplelink/ble_cc26xx_2_01_00_44423_cloud/Components/hal/include" --include_path="C:/ti/tirex-content/simplelink/ble_cc26xx_2_01_00_44423_cloud/Components/hal/target/CC2650TIRTOS" --include_path="C:/ti/tirex-content/simplelink/ble_cc26xx_2_01_00_44423_cloud/Components/hal/target/_common/cc26xx" --include_path="C:/ti/tirex-content/simplelink/ble_cc26xx_2_01_00_44423_cloud/Components/icall/include" --include_path="C:/ti/tirex-content/simplelink/ble_cc26xx_2_01_00_44423_cloud/Components/osal/include" --include_path="C:/ti/tirex-content/simplelink/ble_cc26xx_2_01_00_44423_cloud/Components/services/saddr" --include_path="C:/ti/tirex-content/simplelink/ble_cc26xx_2_01_00_44423_cloud/Projects/ble/ICall/Include" --include_path="C:/ti/tirex-content/simplelink/ble_cc26xx_2_01_00_44423_cloud/Projects/ble/Include" --include_path="C:/ti/tirex-content/simplelink/ble_cc26xx_2_01_00_44423_cloud/Projects/ble/Profiles/Roles" --include_path="C:/ti/tirex-content/simplelink/ble_cc26xx_2_01_00_44423_cloud/Projects/ble/common/cc26xx" --include_path="C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/include" --define=CC26XX --define=CC26XXWARE --define=USE_ICALL --define=xdc_runtime_Assert_DISABLE_ALL --define=Xxdc_runtime_Log_DISABLE_ALL --define=POWER_SAVING --define=DEBUG --define=HEAPMGR_SIZE=3000 --define=ICALL_MAX_NUM_ENTITIES=6 --define=ICALL_RAM0_ADDR=0x200043E8 --define=ICALL_STACK0_ADDR=0x0000E000 --define=MAX_NUM_BLE_CONNS=1 --define=ccs --define=GAPROLE_TASK_STACK_SIZE=520 --define=ICALL_MAX_NUM_TASKS=3 --define=xdc_FILE="\"uartBridge.c\"" --define=UARTLOG_NUM_EVT_BUF=32 -g --gcc --diag_warning=225 --diag_warning=255 --diag_wrap=off --display_error_number --gen_func_subsections=on --abi=eabi --preproc_with_compile --preproc_dependency="Application/uartBridge.d" --obj_directory="Application" --cmd_file="configPkg/compiler.opt" "../Application/uartBridge.c"
+'Finished building: ../Application/uartBridge.c'
+' '
+'Building target: ProjectZeroApp_CC2650LAUNCHXL.out'
+'Invoking: ARM Linker'
+"C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/bin/armcl" -mv7M3 --code_state=16 -me -O3 --opt_for_speed=0 --define=CC26XX --define=CC26XXWARE --define=USE_ICALL --define=xdc_runtime_Assert_DISABLE_ALL --define=Xxdc_runtime_Log_DISABLE_ALL --define=POWER_SAVING --define=DEBUG --define=HEAPMGR_SIZE=3000 --define=ICALL_MAX_NUM_ENTITIES=6 --define=ICALL_RAM0_ADDR=0x200043E8 --define=ICALL_STACK0_ADDR=0x0000E000 --define=MAX_NUM_BLE_CONNS=1 --define=ccs --define=GAPROLE_TASK_STACK_SIZE=520 --define=ICALL_MAX_NUM_TASKS=3 --define=xdc_FILE="\"\"" --define=UARTLOG_NUM_EVT_BUF=32 -g --gcc --diag_warning=225 --diag_warning=255 --diag_wrap=off --display_error_number --gen_func_subsections=on --abi=eabi -z -m"ProjectZeroApp_CC2650LAUNCHXL.map" --heap_size=0 --stack_size=256 -i"C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/lib" -i"C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/include" --reread_libs --define=ICALL_STACK0_ADDR=0x0000E000 --define=ICALL_RAM0_ADDR=0x200043E8 --diag_wrap=off --display_error_number --warn_sections --xml_link_info="ProjectZeroApp_CC2650LAUNCHXL_linkInfo.xml" --rom_model -o "ProjectZeroApp_CC2650LAUNCHXL.out" "./Application/ProjectZero.obj" "./Application/uartBridge.obj" "./ICall/ICall.obj" "./ICall/ICallCC2650.obj" "./ICallBLE/ICallBleAPI.obj" "./ICallBLE/bleUserConfig.obj" "./Profiles/Button_Service.obj" "./Profiles/Data_Service.obj" "./Profiles/LED_Service.obj" "./Profiles/TEST_Service.obj" "./Profiles/devinfoservice.obj" "./Profiles/gatt_uuid.obj" "./Profiles/gattservapp_util.obj" "./Profiles/peripheral.obj" "./Startup/CC2650_LAUNCHXL.obj" "./Startup/ccfg_appBLE.obj" "./Startup/main.obj" "./Utils/uart_logs.obj" "./Utils/util.obj" "C:/ti/tirex-content/simplelink/ble_cc26xx_2_01_00_44423_cloud/Projects/ble/common/cc26xx/CCS/cc26xx_ble_app.cmd" -l"configPkg/linker.cmd" -l"C:/ti/tirex-content/tirtos_simplelink_2_13_00_06/packages/ti/drivers/lib/drivers_cc26xxware.aem3" -l"C:/ti/tirex-content/tirtos_simplelink_2_13_00_06/products/cc26xxware_2_21_01_15600/driverlib/bin/ccs/driverlib.lib" -llibc.a 
+<Linking>
+'Finished building target: ProjectZeroApp_CC2650LAUNCHXL.out'
+' '
+'Invoking: ARM Hex Utility'
+"C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/bin/armhex" --memwidth=8 --romwidth=8 --intel -o "ProjectZeroApp_CC2650LAUNCHXL.hex"  "ProjectZeroApp_CC2650LAUNCHXL.out" 
+Translating to Intel format...
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .resetVecs ==> .resetVecs
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .text.1 ==> .text.1
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Task_Object__PARAMS__C ==> .const:ti_sysbios_knl_Task_Object__PARAMS__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Mailbox_Object__PARAMS__C ==> .const:ti_sysbios_knl_Mailbox_Object__PARAMS__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_family_arm_m3_Hwi_Object__PARAMS__C ==> .const:ti_sysbios_family_arm_m3_Hwi_Object__PARAMS__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_hal_Hwi_Object__PARAMS__C ==> .const:ti_sysbios_hal_Hwi_Object__PARAMS__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_heaps_HeapMem_Module__FXNS__C ==> .const:ti_sysbios_heaps_HeapMem_Module__FXNS__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Swi_Object__PARAMS__C ==> .const:ti_sysbios_knl_Swi_Object__PARAMS__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_gates_GateHwi_Module__FXNS__C ==> .const:ti_sysbios_gates_GateHwi_Module__FXNS__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_gates_GateMutex_Module__FXNS__C ==> .const:ti_sysbios_gates_GateMutex_Module__FXNS__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_heaps_HeapMem_Object__PARAMS__C ==> .const:ti_sysbios_heaps_HeapMem_Object__PARAMS__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Clock_Object__PARAMS__C ==> .const:ti_sysbios_knl_Clock_Object__PARAMS__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Semaphore_Object__PARAMS__C ==> .const:ti_sysbios_knl_Semaphore_Object__PARAMS__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_family_arm_m3_Hwi_Object__DESC__C ==> .const:ti_sysbios_family_arm_m3_Hwi_Object__DESC__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_gates_GateHwi_Object__DESC__C ==> .const:ti_sysbios_gates_GateHwi_Object__DESC__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_gates_GateMutex_Object__DESC__C ==> .const:ti_sysbios_gates_GateMutex_Object__DESC__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_hal_Hwi_Object__DESC__C ==> .const:ti_sysbios_hal_Hwi_Object__DESC__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_heaps_HeapMem_Object__DESC__C ==> .const:ti_sysbios_heaps_HeapMem_Object__DESC__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Clock_Object__DESC__C ==> .const:ti_sysbios_knl_Clock_Object__DESC__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Mailbox_Object__DESC__C ==> .const:ti_sysbios_knl_Mailbox_Object__DESC__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Queue_Object__DESC__C ==> .const:ti_sysbios_knl_Queue_Object__DESC__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Semaphore_Object__DESC__C ==> .const:ti_sysbios_knl_Semaphore_Object__DESC__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Swi_Object__DESC__C ==> .const:ti_sysbios_knl_Swi_Object__DESC__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Task_Object__DESC__C ==> .const:ti_sysbios_knl_Task_Object__DESC__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_gates_GateHwi_Object__PARAMS__C ==> .const:ti_sysbios_gates_GateHwi_Object__PARAMS__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_gates_GateMutex_Object__PARAMS__C ==> .const:ti_sysbios_gates_GateMutex_Object__PARAMS__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Queue_Object__PARAMS__C ==> .const:ti_sysbios_knl_Queue_Object__PARAMS__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Idle_funcList__C ==> .const:ti_sysbios_knl_Idle_funcList__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .text.2 ==> .text.2
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_family_arm_cc26xx_Timer_startupNeeded__C ==> .const:ti_sysbios_family_arm_cc26xx_Timer_startupNeeded__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_family_arm_m3_Hwi_E_alreadyDefined__C ==> .const:ti_sysbios_family_arm_m3_Hwi_E_alreadyDefined__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_family_arm_m3_Hwi_E_hwiLimitExceeded__C ==> .const:ti_sysbios_family_arm_m3_Hwi_E_hwiLimitExceeded__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_family_arm_m3_Hwi_NUM_INTERRUPTS__C ==> .const:ti_sysbios_family_arm_m3_Hwi_NUM_INTERRUPTS__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_family_arm_m3_Hwi_Object__count__C ==> .const:ti_sysbios_family_arm_m3_Hwi_Object__count__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_family_arm_m3_Hwi_Object__table__C ==> .const:ti_sysbios_family_arm_m3_Hwi_Object__table__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_family_arm_m3_Hwi_ccr__C ==> .const:ti_sysbios_family_arm_m3_Hwi_ccr__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_family_arm_m3_Hwi_excHandlerFunc__C ==> .const:ti_sysbios_family_arm_m3_Hwi_excHandlerFunc__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_family_arm_m3_Hwi_nullIsrFunc__C ==> .const:ti_sysbios_family_arm_m3_Hwi_nullIsrFunc__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_family_arm_m3_Hwi_numSparseInterrupts__C ==> .const:ti_sysbios_family_arm_m3_Hwi_numSparseInterrupts__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_family_arm_m3_Hwi_priGroup__C ==> .const:ti_sysbios_family_arm_m3_Hwi_priGroup__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_family_arm_m3_TaskSupport_stackAlignment__C ==> .const:ti_sysbios_family_arm_m3_TaskSupport_stackAlignment__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_heaps_HeapMem_E_memory__C ==> .const:ti_sysbios_heaps_HeapMem_E_memory__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_heaps_HeapMem_Module__gateObj__C ==> .const:ti_sysbios_heaps_HeapMem_Module__gateObj__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_heaps_HeapMem_Object__count__C ==> .const:ti_sysbios_heaps_HeapMem_Object__count__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_heaps_HeapMem_Object__table__C ==> .const:ti_sysbios_heaps_HeapMem_Object__table__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_heaps_HeapMem_reqAlign__C ==> .const:ti_sysbios_heaps_HeapMem_reqAlign__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Clock_serviceMargin__C ==> .const:ti_sysbios_knl_Clock_serviceMargin__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Mailbox_Object__count__C ==> .const:ti_sysbios_knl_Mailbox_Object__count__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Mailbox_Object__table__C ==> .const:ti_sysbios_knl_Mailbox_Object__table__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Queue_Object__count__C ==> .const:ti_sysbios_knl_Queue_Object__count__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Queue_Object__table__C ==> .const:ti_sysbios_knl_Queue_Object__table__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Swi_Object__count__C ==> .const:ti_sysbios_knl_Swi_Object__count__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Swi_Object__table__C ==> .const:ti_sysbios_knl_Swi_Object__table__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Swi_numPriorities__C ==> .const:ti_sysbios_knl_Swi_numPriorities__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Task_Object__count__C ==> .const:ti_sysbios_knl_Task_Object__count__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Task_Object__table__C ==> .const:ti_sysbios_knl_Task_Object__table__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Task_allBlockedFunc__C ==> .const:ti_sysbios_knl_Task_allBlockedFunc__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Task_defaultStackHeap__C ==> .const:ti_sysbios_knl_Task_defaultStackHeap__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Task_defaultStackSize__C ==> .const:ti_sysbios_knl_Task_defaultStackSize__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Task_numConstructedTasks__C ==> .const:ti_sysbios_knl_Task_numConstructedTasks__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .text.3 ==> .text.3
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_family_arm_cc26xx_Timer_Module__id__C ==> .const:ti_sysbios_family_arm_cc26xx_Timer_Module__id__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_family_arm_cc26xx_TimestampProvider_useClockTimer__C ==> .const:ti_sysbios_family_arm_cc26xx_TimestampProvider_useClockTimer__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_family_arm_m3_Hwi_Module__id__C ==> .const:ti_sysbios_family_arm_m3_Hwi_Module__id__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_gates_GateHwi_Module__id__C ==> .const:ti_sysbios_gates_GateHwi_Module__id__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_gates_GateMutex_Module__id__C ==> .const:ti_sysbios_gates_GateMutex_Module__id__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_heaps_HeapMem_Module__id__C ==> .const:ti_sysbios_heaps_HeapMem_Module__id__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Task_initStackFlag__C ==> .const:ti_sysbios_knl_Task_initStackFlag__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Clock_tickMode__C ==> .const:ti_sysbios_knl_Clock_tickMode__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:xdc_runtime_Startup_firstFxns__C ==> .const:xdc_runtime_Startup_firstFxns__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:xdc_runtime_Startup_lastFxns__C ==> .const:xdc_runtime_Startup_lastFxns__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:xdc_runtime_Assert_E_assertFailed__C ==> .const:xdc_runtime_Assert_E_assertFailed__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:xdc_runtime_Error_E_memory__C ==> .const:xdc_runtime_Error_E_memory__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:xdc_runtime_Error_policyFxn__C ==> .const:xdc_runtime_Error_policyFxn__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:xdc_runtime_IGateProvider_Interface__BASE__C ==> .const:xdc_runtime_IGateProvider_Interface__BASE__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:xdc_runtime_IHeap_Interface__BASE__C ==> .const:xdc_runtime_IHeap_Interface__BASE__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:xdc_runtime_IModule_Interface__BASE__C ==> .const:xdc_runtime_IModule_Interface__BASE__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:xdc_runtime_Main_Module__diagsEnabled__C ==> .const:xdc_runtime_Main_Module__diagsEnabled__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:xdc_runtime_Main_Module__diagsIncluded__C ==> .const:xdc_runtime_Main_Module__diagsIncluded__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:xdc_runtime_Main_Module__diagsMask__C ==> .const:xdc_runtime_Main_Module__diagsMask__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:xdc_runtime_Memory_defaultHeapInstance__C ==> .const:xdc_runtime_Memory_defaultHeapInstance__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:xdc_runtime_Startup_execImpl__C ==> .const:xdc_runtime_Startup_execImpl__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:xdc_runtime_Startup_maxPasses__C ==> .const:xdc_runtime_Startup_maxPasses__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:xdc_runtime_Startup_sfxnRts__C ==> .const:xdc_runtime_Startup_sfxnRts__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:xdc_runtime_Startup_sfxnTab__C ==> .const:xdc_runtime_Startup_sfxnTab__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:xdc_runtime_Startup_startModsFxn__C ==> .const:xdc_runtime_Startup_startModsFxn__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:xdc_runtime_SysCallback_abortFxn__C ==> .const:xdc_runtime_SysCallback_abortFxn__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:xdc_runtime_SysCallback_exitFxn__C ==> .const:xdc_runtime_SysCallback_exitFxn__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:xdc_runtime_System_abortFxn__C ==> .const:xdc_runtime_System_abortFxn__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:xdc_runtime_System_exitFxn__C ==> .const:xdc_runtime_System_exitFxn__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:xdc_runtime_System_maxAtexitHandlers__C ==> .const:xdc_runtime_System_maxAtexitHandlers__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:xdc_runtime_Text_charTab__C ==> .const:xdc_runtime_Text_charTab__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:xdc_runtime_Text_nameEmpty__C ==> .const:xdc_runtime_Text_nameEmpty__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:xdc_runtime_Text_nameStatic__C ==> .const:xdc_runtime_Text_nameStatic__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:xdc_runtime_Text_nameUnknown__C ==> .const:xdc_runtime_Text_nameUnknown__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:xdc_runtime_Main_Module__id__C ==> .const:xdc_runtime_Main_Module__id__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:xdc_runtime_Memory_Module__id__C ==> .const:xdc_runtime_Memory_Module__id__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:xdc_runtime_Text_charCnt__C ==> .const:xdc_runtime_Text_charCnt__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:xdc_runtime_Text_isLoaded__C ==> .const:xdc_runtime_Text_isLoaded__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:xdc_runtime_Error_policy__C ==> .const:xdc_runtime_Error_policy__C
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_rom_ROM_AONRTCChannelEnable ==> .const:ti_sysbios_rom_ROM_AONRTCChannelEnable
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_rom_ROM_AONRTCCompareValueSet ==> .const:ti_sysbios_rom_ROM_AONRTCCompareValueSet
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_rom_ROM_AONRTCCurrentCompareValueGet ==> .const:ti_sysbios_rom_ROM_AONRTCCurrentCompareValueGet
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_rom_ROM_AONRTCEventClear ==> .const:ti_sysbios_rom_ROM_AONRTCEventClear
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_rom_ROM_ti_sysbios_family_arm_cc26xx_Timer_getCount64__E ==> .const:ti_sysbios_rom_ROM_ti_sysbios_family_arm_cc26xx_Timer_getCount64__E
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_rom_ROM_ti_sysbios_family_arm_cc26xx_Timer_getCurrentTick__E ==> .const:ti_sysbios_rom_ROM_ti_sysbios_family_arm_cc26xx_Timer_getCurrentTick__E
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_rom_ROM_ti_sysbios_family_arm_cc26xx_Timer_getMaxTicks__E ==> .const:ti_sysbios_rom_ROM_ti_sysbios_family_arm_cc26xx_Timer_getMaxTicks__E
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_rom_ROM_ti_sysbios_family_arm_cc26xx_Timer_initDevice__I ==> .const:ti_sysbios_rom_ROM_ti_sysbios_family_arm_cc26xx_Timer_initDevice__I
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_rom_ROM_ti_sysbios_family_arm_cc26xx_Timer_setNextTick__E ==> .const:ti_sysbios_rom_ROM_ti_sysbios_family_arm_cc26xx_Timer_setNextTick__E
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_rom_ROM_ti_sysbios_family_arm_cc26xx_Timer_setThreshold__I ==> .const:ti_sysbios_rom_ROM_ti_sysbios_family_arm_cc26xx_Timer_setThreshold__I
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_rom_ROM_ti_sysbios_family_arm_cc26xx_Timer_start__E ==> .const:ti_sysbios_rom_ROM_ti_sysbios_family_arm_cc26xx_Timer_start__E
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_rom_ROM_ti_sysbios_family_arm_cc26xx_TimestampProvider_get32__E ==> .const:ti_sysbios_rom_ROM_ti_sysbios_family_arm_cc26xx_TimestampProvider_get32__E
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_rom_ROM_xdc_runtime_Startup_getState__I ==> .const:ti_sysbios_rom_ROM_xdc_runtime_Startup_getState__I
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_rom_ROM_xdc_runtime_System_SupportProxy_abort__E ==> .const:ti_sysbios_rom_ROM_xdc_runtime_System_SupportProxy_abort__E
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_rom_ROM_xdc_runtime_System_SupportProxy_exit__E ==> .const:ti_sysbios_rom_ROM_xdc_runtime_System_SupportProxy_exit__E
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_gates_GateMutex_Instance_State_sem__O ==> .const:ti_sysbios_gates_GateMutex_Instance_State_sem__O
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Clock_Module_State_clockQ__O ==> .const:ti_sysbios_knl_Clock_Module_State_clockQ__O
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Mailbox_Instance_State_dataQue__O ==> .const:ti_sysbios_knl_Mailbox_Instance_State_dataQue__O
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Mailbox_Instance_State_dataSem__O ==> .const:ti_sysbios_knl_Mailbox_Instance_State_dataSem__O
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Mailbox_Instance_State_freeQue__O ==> .const:ti_sysbios_knl_Mailbox_Instance_State_freeQue__O
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Mailbox_Instance_State_freeSem__O ==> .const:ti_sysbios_knl_Mailbox_Instance_State_freeSem__O
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Semaphore_Instance_State_pendQ__O ==> .const:ti_sysbios_knl_Semaphore_Instance_State_pendQ__O
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const:ti_sysbios_knl_Task_Module_State_inactiveQ__O ==> .const:ti_sysbios_knl_Task_Module_State_inactiveQ__O
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .text.4 ==> .text.4
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .const ==> .const
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .cinit ==> .cinit
+   "ProjectZeroApp_CC2650LAUNCHXL.out" .ccfg ==> .ccfg
+'Finished building: ProjectZeroApp_CC2650LAUNCHXL.hex'
+' '
+' '
+
+**** Build Finished ****
