@@ -45,6 +45,7 @@
 #define RADIO_PACKET_TYPE_INIT_PACKET           3
 #define RADIO_PACKET_TYPE_STRING_PACKET         4
 #define RADIO_PACKET_TYPE_NETW_STATUS_PACKET    5
+#define RADIO_PACKET_TYPE_PASSW                 6
 
 #define NETW_STATUS_ALL             0xFF
 #define NETW_STATUS_BUSY            (uint8_t)(1 << 0)

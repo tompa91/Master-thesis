@@ -114,19 +114,19 @@ static PIN_State buttonPinState;
 static PIN_State ledPinState;
 */
 /* Enable the 3.3V power domain used by the LCD */
-PIN_Config pinTable[] = {
+/*PIN_Config pinTable[] = {
     NODE_ACTIVITY_LED | PIN_GPIO_OUTPUT_EN | PIN_GPIO_LOW | PIN_PUSHPULL | PIN_DRVSTR_MAX,
     PIN_TERMINATE
-};
+};*/
 
 /*
  * Application button pin configuration table:
  *   - Buttons interrupts are configured to trigger on falling edge.
  */
-PIN_Config buttonPinTable[] = {
+/*PIN_Config buttonPinTable[] = {
     Board_PIN_BUTTON1 | PIN_INPUT_EN | PIN_PULLDOWN | PIN_IRQ_POSEDGE,
     PIN_TERMINATE
-};
+};*/
 
 /***** Prototypes *****/
 #ifdef COMMISSIONING
@@ -151,23 +151,6 @@ void commissionTask_init(void)
     Event_Params_init(&eventParam2);
     Event_construct(&connectEvent, &eventParam2);
     connectEventHandle = Event_handle(&connectEvent);
-
-
-    /************  ||  *******************************************/
-    /*********     ||    BEHÖVS DETTA????????           **********/
-    /*********    \||/                                  **********/
-    /*********     \/                                   **********/
-    /*Troligtvis inte. Verkar användas för att skicka ADC värdena i NodeTask
-
-    /* Create clock object which is used for fast report timeout */
-    /*Clock_Params clkParams2;
-    clkParams2.period = 0;
-    clkParams2.startFlag = FALSE;
-    Clock_construct(&fastReportTimeoutClock2, fastReportTimeoutCallback2, 1, &clkParams2);
-    fastReportTimeoutClockHandle2 = Clock_handle(&fastReportTimeoutClock2);
-    */
-    /*************************************************************/
-
 
     /* Create the node task */
     Task_Params_init(&commissionTaskParams);
@@ -227,7 +210,7 @@ static void commissionTaskFunction(UArg arg0, UArg arg1)
     char        echo[2];
     const char  skip2rows[] = "\r\n\r\n";
     const char  welcome[] = "Welcome to the WSN Node program!\r\n\r\n";
-    const char  echoPrompt[] = "Enter network password: ";
+    const char  enter_pass[] = "Enter network password: ";
     const char  wrong_pass[] = "Wrong password, try again!\r\n";
     const char  netw_full[] = "The network is full. To replace an existing node, press Y. Press n if nothing is to be done.\r\n";
     const char  connected[] = "Connection to Concentrator established.\r\n\r\n";
@@ -270,6 +253,9 @@ static void commissionTaskFunction(UArg arg0, UArg arg1)
                                       | RADIO_EVENT_NETW_FULL | RADIO_EVENT_WRONG_PASSW
                                       | RADIO_EVENT_INIT, BIOS_WAIT_FOREVER);
 
+        /* If the user wants to connect this unit/node to a concentrator,
+         * an InitPacket is broadcasted to concentrators nearby.
+         */
         if (cEvents & RADIO_EVENT_INIT)
         {
             // Say hello to concentrator
@@ -277,22 +263,31 @@ static void commissionTaskFunction(UArg arg0, UArg arg1)
             NodeRadioTask_sendData((void *) data, 0, RADIO_EVENT_SEND_INIT_MSG);
         }
 
-
+        /* This flag is set if:
+         * a concentrator tells this node to attempt authentication.
+         * an authentication attempt was made, but the password was wrong.
+         */
         if (cEvents & RADIO_EVENT_AUTHENTICATE)
         {
-            UART_write(uart, echoPrompt, sizeof(echoPrompt));
-
+            // If the previously entered password was wrong
             if (cEvents & RADIO_EVENT_WRONG_PASSW)
             {
                 UART_write(uart, skip2rows, sizeof(skip2rows));
-
+                // Tell user that the password was wrong and to try again
                 UART_write(uart, wrong_pass, sizeof(wrong_pass));
-                UART_write(uart, echoPrompt, sizeof(echoPrompt));
+
+                UART_write(uart, enter_pass, sizeof(enter_pass));
+            }
+            else
+            {
+                // Tell user to enter password
+                UART_write(uart, enter_pass, sizeof(enter_pass));
             }
 
             input = ' ';
             int i = 0;
 
+            // Read password via UART
             while ((i < PASSWORD_LENGTH) && (input != 13))
             {
                 UART_read(uart, &input, 1);
@@ -314,12 +309,17 @@ static void commissionTaskFunction(UArg arg0, UArg arg1)
                 UART_write(uart, &echo, size);
             }
 
+            // Add null termination
             passw[i] = '\0';
             i++;
 
-            NodeRadioTask_sendData((void *) passw, i, RADIO_EVENT_SEND_STRING);
+            // Send the password to concentrator
+            NodeRadioTask_sendData((void *) passw, i, RADIO_EVENT_SEND_PASSW);
         }
 
+        /* If the network is full:
+         * The user will be able to replace one unit/node in the network.
+         */
         if (cEvents & RADIO_EVENT_NETW_FULL)
         {
             UART_write(uart, netw_full, sizeof(netw_full));
@@ -347,6 +347,11 @@ static void commissionTaskFunction(UArg arg0, UArg arg1)
             } while(input != 'y' || input != 'Y' || input != 'n' || input != 'N');
         }
 
+        /* If this unit/node already was known by the network
+         * or
+         * if connection to the network succeeded,
+         * post connection success to nodeTaskFunction
+         */
         if (cEvents & (RADIO_EVENT_CONNECT_SUCCESS | NODE_ALREADY_KNOWN))
         {
             // Alert user that connection is established
@@ -355,6 +360,8 @@ static void commissionTaskFunction(UArg arg0, UArg arg1)
             Event_post(connectEventHandle, RADIO_EVENT_CONNECT_SUCCESS);
         }
 
+        /* If connection to network failed, tell the user
+         */
         if (cEvents & RADIO_EVENT_CONNECT_FAIL)
         {
             /* Tell user that connection has failed and ask if
@@ -400,9 +407,9 @@ static void nodeTaskFunction(UArg arg0, UArg arg1)
 
 #ifdef COMMISSIONING
 
-    //******************************************************//
-    // Wait for established connection to concentrator      //
-    //******************************************************//
+    //*******************************************************//
+    //    Wait for established connection to concentrator    //
+    //*******************************************************//
 
     uint32_t cEvents = Event_pend(connectEventHandle, 0, RADIO_EVENT_CONNECT_SUCCESS, BIOS_WAIT_FOREVER);
 #endif //COMMISSIONING

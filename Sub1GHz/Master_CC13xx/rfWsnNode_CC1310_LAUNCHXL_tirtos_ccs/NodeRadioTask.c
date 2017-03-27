@@ -205,7 +205,9 @@ static void nodeRadioTaskFunction(UArg arg0, UArg arg1)
         /* Wait for an event */
         uint32_t events = Event_pend(radioOperationEventHandle, 0, RADIO_EVENT_ALL, BIOS_WAIT_FOREVER);
 
-        /* If we should introduce ourselves to a concentrator */
+        /* If we should introduce ourselves to a concentrator
+         * Send an InitPacket containing our address and nodeInfo
+         */
         if (events & RADIO_EVENT_SEND_INIT_MSG)
         {
             initPacket.header.sourceAddress = nodeAddress;
@@ -216,7 +218,8 @@ static void nodeRadioTaskFunction(UArg arg0, UArg arg1)
             sendInitPacket(initPacket, NODERADIO_MAX_RETRIES, NODERADIO_ACK_TIMEOUT_TIME_MS);
         }
 
-
+        /* If we should send a string
+         */
         if (events & RADIO_EVENT_SEND_STRING)
         {
             stringPacket.header.sourceAddress = nodeAddress;
@@ -225,6 +228,13 @@ static void nodeRadioTaskFunction(UArg arg0, UArg arg1)
             sendStringPacket(stringPacket, (uint8_t) appData, NODERADIO_MAX_RETRIES, NODERADIO_ACK_TIMEOUT_TIME_MS);
         }
 
+        if (events & RADIO_EVENT_SEND_PASSW)
+        {
+            stringPacket.header.sourceAddress = nodeAddress;
+            stringPacket.header.packetType = RADIO_PACKET_TYPE_PASSW;
+
+            sendStringPacket(stringPacket, (uint8_t) appData, NODERADIO_MAX_RETRIES, NODERADIO_ACK_TIMEOUT_TIME_MS);
+        }
 
         /* If we should send ADC data */
         if (events & RADIO_EVENT_SEND_DATA)
@@ -320,6 +330,7 @@ static void sendInitPacket(struct InitPacket packet, uint8_t maxNumberOfRetries,
     /* Set destination address in EasyLink API */
     currentRadioOperation.easyLinkTxPacket.dstAddr[0] = RADIO_CONCENTRATOR_ADDRESS;
 
+    /* Save our address, packetType and nodeInfo to the EasyLink packet payload */
     currentRadioOperation.easyLinkTxPacket.payload[0] = packet.header.sourceAddress;
     currentRadioOperation.easyLinkTxPacket.payload[1] = packet.header.packetType;
     currentRadioOperation.easyLinkTxPacket.payload[2] = packet.nodeInfo;
@@ -469,44 +480,18 @@ static void rxDoneCallback(EasyLink_RxPacket * rxPacket, EasyLink_Status status)
                 /* Signal ACK packet received */
                 Event_post(radioOperationEventHandle, RADIO_EVENT_DATA_ACK_RECEIVED);
             }
+            /* If this is a network status packet */
             else if (packetHeader->packetType == RADIO_PACKET_TYPE_NETW_STATUS_PACKET)
             {
+                /* Post to NodeRadioTask_sendData() that we got a status answer */
                 returnRadioOperationStatus(NodeRadioStatus_Success);
 
-                //struct NetwStatus* statusPacket;
-                //= (struct NetwStatus *)rxPacket->payload;
-
+                /* Save the status event flags. */
                 uint32_t statusEvent = (rxPacket->payload[2] << 24) | (rxPacket->payload[3] << 16) |
                                        (rxPacket->payload[4] << 8) | (rxPacket->payload[4]);
 
                 /* Post commissionTask whatever status we got from concentrator */
                 Event_post(commissionEventHandle, statusEvent);
-
-
-                /*if (statusPacket->status & NETW_STATUS_FULL)
-                {
-                    Event_post(commissionEventHandle, RADIO_EVENT_NETW_FULL);
-                }
-                else if(statusPacket->status & NETW_STATUS_AUTHENTICATE)
-                {
-                    Event_post(commissionEventHandle, RADIO_EVENT_AUTHENTICATE);
-                }
-                else if(statusPacket->status & NETW_STATUS_CONNECTION_SUCCES)
-                {
-                    Event_post(commissionEventHandle, RADIO_EVENT_CONNECT_SUCCESS);
-                }
-                else if(statusPacket->status & NETW_STATUS_ERROR)
-                {
-                    Event_post(commissionEventHandle, RADIO_EVENT_CONNECT_FAIL);
-                }
-                else if(statusPacket->status & NETW_STATUS_WRONG_PASSW)
-                {
-                    Event_post(commissionEventHandle, RADIO_EVENT_WRONG_PASSW);
-                }
-                else if(statusPacket->status & NETW_STATUS_ALREADY_KOWN)
-                {
-                    Event_post(commissionEventHandle, NODE_ALREADY_KNOWN)
-                }*/
             }
             else
             {

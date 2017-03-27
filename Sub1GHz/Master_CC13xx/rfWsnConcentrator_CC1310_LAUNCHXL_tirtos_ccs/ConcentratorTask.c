@@ -58,8 +58,9 @@
 #define CONCENTRATOR_TASK_STACK_SIZE 1024
 #define CONCENTRATOR_TASK_PRIORITY   3
 
-#define CONCENTRATOR_EVENT_ALL                         0xFFFFFFFF
-#define CONCENTRATOR_EVENT_NEW_ADC_SENSOR_VALUE    (uint32_t)(1 << 0)
+#define CONCENTRATOR_EVENT_ALL                      0xFFFFFFFF
+#define CONCENTRATOR_EVENT_NEW_ADC_SENSOR_VALUE     (uint32_t)(1 << 0)
+#define CONCENTRATOR_EVENT_NEW_TEMP_VALUE           (uint32_t)(1 << 1)
 
 #define CONCENTRATOR_MAX_NODES 3
 
@@ -149,46 +150,33 @@ static void concentratorTaskFunction(UArg arg0, UArg arg1)
         uint32_t events = Event_pend(concentratorEventHandle, 0, CONCENTRATOR_EVENT_ALL, BIOS_WAIT_FOREVER);
 
         /* If we got a new ADC sensor value */
-        if(events & CONCENTRATOR_EVENT_NEW_ADC_SENSOR_VALUE) {
-
-            /******************************************************/
-            /******************* ?COMMISSIONING? ********************/
-            /******************************************************/
-
-            /* If we knew this node from before, update the value */
-            /*if(isKnownNodeAddress(latestActiveAdcSensorNode.address)) {
-                updateNode(&latestActiveAdcSensorNode);
-                //PIN_setOutputValue(pinHandle, Board_PIN_LED2,!PIN_getOutputValue(Board_PIN_LED2));
-            */
-
-            /*else {
-
-
-                /* Else add it */
-                //addNewNode(&latestActiveAdcSensorNode);
-
-
-                /* WAIT WHAT!? */
-                /* FIX PASSWORD ENTRY FOR ADDING NODES TO NETWORK */
-
-                // if(passWordCorrect)
-                //     addNewNode();
-            /*
-            {
-
-            /* Update the values on the LCD */
-            //updateLcd();
+        if(events & CONCENTRATOR_EVENT_NEW_ADC_SENSOR_VALUE)
+        {
+            /* Send value to gateway
+             *
+             */
         }
+
+        if(events & CONCENTRATOR_EVENT_NEW_TEMP_VALUE)
+        {
+            /* Send value to gateway
+             *
+             */
+        }
+
+        // DO SOMETHING ELSE?
+
+        // HUH?
     }
 }
 
 static void packetReceivedCallback(union ConcentratorPacket* packet, int8_t rssi)
 {
     /* If we recived an ADC sensor packet, for backward compatibility */
-    if (packet->header.packetType == RADIO_PACKET_TYPE_DATA_PACKET)
+    if (packet->msgType == MSG_TYPE_DATA)
     {
         /* Save the values */
-        latestActiveAdcSensorNode.address = packet->header.sourceAddress;
+        latestActiveAdcSensorNode.address = packet->nodeInfo.address;
         latestActiveAdcSensorNode.latestAdcValue = packet->adcSensorPacket.adcValue;
         latestActiveAdcSensorNode.button = 0; //no button value in ADC packet
         latestActiveAdcSensorNode.latestRssi = rssi;
@@ -196,11 +184,11 @@ static void packetReceivedCallback(union ConcentratorPacket* packet, int8_t rssi
         Event_post(concentratorEventHandle, CONCENTRATOR_EVENT_NEW_ADC_SENSOR_VALUE);
     }
     /* If we received a DualMode ADC sensor packet*/
-    else if(packet->header.packetType == RADIO_PACKET_TYPE_DM_SENSOR_PACKET)
+    else if(packet->msgType == MSG_TYPE_DM_SENSOR_DATA)
     {
 
         /* Save the values */
-        latestActiveAdcSensorNode.address = packet->header.sourceAddress;
+        latestActiveAdcSensorNode.address = packet->nodeInfo.address;
         latestActiveAdcSensorNode.latestAdcValue = packet->dmSensorPacket.adcValue;
         latestActiveAdcSensorNode.button = packet->dmSensorPacket.button;
         latestActiveAdcSensorNode.latestRssi = rssi;

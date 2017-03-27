@@ -58,17 +58,13 @@
 
 #define STATUS_EVENT_FLAGS              (RADIO_EVENT_CONNECT_FAIL | RADIO_EVENT_CONNECT_SUCCESS | RADIO_EVENT_NETW_FULL | RADIO_EVENT_AUTHENTICATE | RADIO_EVENT_WRONG_PASSW | NODE_ALREADY_KNOWN)
 
-
-
-
-
-
-
-#define NODE_TYPE_ALL                   0xFF
-#define NODE_TYPE_TEMP                  (uint8_t)(1 << 0)
-#define NODE_TYPE_BLE_ANNCE             (uint8_t)(1 << 1)
-#define NODE_TYPE_OTHER                 (uint8_t)(1 << 2)
-
+#define MSG_TYPE_ALL                    0xFF
+#define MSG_TYPE_TEMP                   (uint8_t)(1 << 0)
+#define MSG_TYPE_BLE_ANNCE              (uint8_t)(1 << 1)
+#define MSG_TYPE_NEW_UNIT               (uint8_t)(1 << 2)
+#define MSG_TYPE_STRING                 (uint8_t)(1 << 3)
+#define MSG_TYPE_DATA                   (uint8_t)(1 << 4)
+#define MSG_TYPE_DM_SENSOR_DATA         (uint8_t)(1 << 5)
 
 enum ConcentratorRadioOperationStatus {
     ConcentratorRadioStatus_Success,
@@ -77,17 +73,19 @@ enum ConcentratorRadioOperationStatus {
 };
 
 union ConcentratorPacket {
-    struct PacketHeader header;
+    uint8_t msgType;
+    struct NWK_Node nodeInfo;
     struct AdcSensorPacket adcSensorPacket;
     struct DualModeSensorPacket dmSensorPacket;
+    struct StringPacket stringPacket;
+
 };
 
 /***** Type declarations *****/
-struct NWK_Node {
-    uint8_t address;
-    uint8_t nodeType;
-    uint8_t latestRssi;
-};
+/*struct MsgType {
+    uint8_t
+};*/
+
 
 struct AdcSensorNode {
     uint8_t address;

@@ -55,6 +55,12 @@
 #define NETW_STATUS_WRONG_PASSW         (uint8_t)(1 << 4)
 #define NETW_STATUS_ALREADY_KNOWN       (uint8_t)(1 << 5)
 
+struct NWK_Node {
+    uint8_t address;
+    uint8_t nodeType;
+    uint8_t latestRssi;
+};
+
 struct PacketHeader {
     uint8_t sourceAddress;
     uint8_t packetType;
@@ -92,5 +98,6 @@ struct NetwStatus {
     struct PacketHeader header;
     uint32_t status;
 };
+
 
 #endif /* RADIOPROTOCOL_H_ */

@@ -214,45 +214,13 @@ static void concentratorRadioTaskFunction(UArg arg0, UArg arg1)
                     | NODE_ALREADY_KNOWN)*/)
             {
                 events = events & ~RADIO_EVENT_VALID_PACKET_RECEIVED;
+
                 sendStatusMsg(events);
             }
             else
             {
-                sendAck(latestRxPacket.header.sourceAddress);
+                sendAck(latestRxPacket.nodeInfo.address);
             }
-
-            /* KANSKE KAN SKIPPA HELA SKITEN HÄR????? */
-            /*
-            if (events & RADIO_EVENT_NETW_FULL)
-            {
-                sendStatusMsg(NETW_STATUS_FULL);
-            }
-            else if (events & RADIO_EVENT_AUTHENTICATE)
-            {
-                sendStatusMsg(NETW_STATUS_AUTHENTICATE);
-            }
-            else if (events & RADIO_EVENT_CONNECT_SUCCESS)
-            {
-                sendStatusMsg(NETW_STATUS_AUTHENTICATE);
-
-            }
-            else if (events & RADIO_EVENT_CONNECT_FAIL)
-            {
-                sendStatusMsg(NETW_STATUS_AUTHENTICATE);
-
-            }
-            else if (events & RADIO_EVENT_WRONG_PASSW)
-            {
-                sendStatusMsg(NETW_STATUS_AUTHENTICATE);
-
-            }
-            else if (events & NODE_ALREADY_KNOWN)
-            {
-                sendStatusMsg(NETW_STATUS_AUTHENTICATE);
-
-            }
-            */
-
 
 
             /* Send ack packet */
@@ -333,7 +301,8 @@ static void notifyPacketReceived(union ConcentratorPacket* latestRxPacket)
 
 static void rxDoneCallback(EasyLink_RxPacket * rxPacket, EasyLink_Status status)
 {
-    union ConcentratorPacket* tmpRxPacket;
+    //union ConcentratorPacket* tmpRxPacket;
+    struct PacketHeader* packetHeader;
 
     /* If we received a packet successfully */
     if (status == EasyLink_Status_Success)
@@ -341,26 +310,37 @@ static void rxDoneCallback(EasyLink_RxPacket * rxPacket, EasyLink_Status status)
         /* Save the latest RSSI, which is later sent to the receive callback */
         latestRssi = (int8_t)rxPacket->rssi;
 
-        /* Check that this is a valid packet */
-        tmpRxPacket = (union ConcentratorPacket*)(rxPacket->payload);
+        packetHeader = (struct PacketHeader*)(rxPacket->payload);
+        //tmpRxPacket = (union ConcentratorPacket*)(rxPacket->payload);
 
-        if (isKnownNodeAddress(rxPacket->payload[0]))
+        /* Check if we know this unit/node from before */
+        if (isKnownNodeAddress(packetHeader->sourceAddress))
         {
-            if (tmpRxPacket->header.packetType == RADIO_PACKET_TYPE_DATA_PACKET)
+            /* Texas stuff */
+            if (packetHeader->packetType == RADIO_PACKET_TYPE_DATA_PACKET)
             {
                 /* Save packet */
+                /*
                 latestRxPacket.header.sourceAddress = rxPacket->payload[0];
                 latestRxPacket.header.packetType = rxPacket->payload[1];
+                */
+                latestRxPacket.msgType = MSG_TYPE_DATA;
+                latestRxPacket.nodeInfo.address = rxPacket->payload[0];
+                latestRxPacket.adcSensorPacket.header.sourceAddress = rxPacket->payload[0];
+                latestRxPacket.adcSensorPacket.header.packetType = rxPacket->payload[1];
                 latestRxPacket.adcSensorPacket.adcValue = (rxPacket->payload[2] << 8) | rxPacket->payload[3];
 
                 /* Signal packet received */
                 Event_post(radioOperationEventHandle, RADIO_EVENT_VALID_PACKET_RECEIVED);
             }
-            else if (tmpRxPacket->header.packetType == RADIO_PACKET_TYPE_DM_SENSOR_PACKET)
+            /* Texas stuff */
+            else if (packetHeader->packetType == RADIO_PACKET_TYPE_DM_SENSOR_PACKET)
             {
                 /* Save packet */
-                latestRxPacket.header.sourceAddress = rxPacket->payload[0];
-                latestRxPacket.header.packetType = rxPacket->payload[1];
+                latestRxPacket.msgType = MSG_TYPE_DATA;
+                latestRxPacket.nodeInfo.address = rxPacket->payload[0];
+                latestRxPacket.dmSensorPacket.header.sourceAddress = rxPacket->payload[0];
+                latestRxPacket.dmSensorPacket.header.packetType = rxPacket->payload[1];
                 latestRxPacket.dmSensorPacket.adcValue = (rxPacket->payload[2] << 8) | rxPacket->payload[3];
                 latestRxPacket.dmSensorPacket.batt = (rxPacket->payload[4] << 8) | rxPacket->payload[5];
                 latestRxPacket.dmSensorPacket.time100MiliSec = (rxPacket->payload[6] << 24) |
@@ -373,10 +353,9 @@ static void rxDoneCallback(EasyLink_RxPacket * rxPacket, EasyLink_Status status)
                 Event_post(radioOperationEventHandle, RADIO_EVENT_VALID_PACKET_RECEIVED);
             }
             /* If this is an init packet */
-            else if (tmpRxPacket->header.packetType == RADIO_PACKET_TYPE_INIT_PACKET)
+            else if (packetHeader->packetType == RADIO_PACKET_TYPE_INIT_PACKET)
             {
-                latestRxPacket.header.sourceAddress = rxPacket->payload[0];
-                latestRxPacket.header.packetType = rxPacket->payload[1];
+                latestRxPacket.msgType = 0;
 
                 /* Post radioTask to tell the node that it is connected. */
                 Event_post(radioOperationEventHandle, NODE_ALREADY_KNOWN | RADIO_EVENT_VALID_PACKET_RECEIVED);
@@ -387,16 +366,20 @@ static void rxDoneCallback(EasyLink_RxPacket * rxPacket, EasyLink_Status status)
                 Event_post(radioOperationEventHandle, RADIO_EVENT_INVALID_PACKET_RECEIVED);
             }
         }
+        /* If the unit/node is unknown to this network */
         else
         {
             /* If this is an init packet */
-            if (tmpRxPacket->header.packetType == RADIO_PACKET_TYPE_INIT_PACKET)
+            if (packetHeader->packetType == RADIO_PACKET_TYPE_INIT_PACKET)
             {
-                latestRxPacket.header.sourceAddress = rxPacket->payload[0];
+                /*latestRxPacket.header.sourceAddress = rxPacket->payload[0];
                 latestRxPacket.header.packetType = rxPacket->payload[1];
+                */
+
+                latestRxPacket.msgType = 0;
 
                 /* Save the node's address, nodeType and RSSI in a "wait state"
-                 * for it to be recognizable in the authentication process
+                 * for it to be remembered in the authentication process
                  */
                 bindWaitNode.address = rxPacket->payload[0];
                 bindWaitNode.nodeType = rxPacket->payload[2];
@@ -407,14 +390,6 @@ static void rxDoneCallback(EasyLink_RxPacket * rxPacket, EasyLink_Status status)
                  * Instead of only one wait spot.
                  */
 
-                /*PIN_setOutputValue(pinHandle, Board_PIN_LED2,!PIN_getOutputValue(Board_PIN_LED2));
-
-                CPUdelay(1000000);
-
-                PIN_setOutputValue(pinHandle, Board_PIN_LED2,!PIN_getOutputValue(Board_PIN_LED2));
-
-                CPUdelay(1000000);
-                */
                 /*bindWaitList[nNodesWaiting]->address = rxPacket->payload[0];
                 bindWaitList[nNodesWaiting]->nodeType = rxPacket->payload[2];
                 bindWaitList[nNodesWaiting]->latestRssi = latestRssi;
@@ -425,10 +400,11 @@ static void rxDoneCallback(EasyLink_RxPacket * rxPacket, EasyLink_Status status)
                 Event_post(radioOperationEventHandle, RADIO_EVENT_AUTHENTICATE | RADIO_EVENT_VALID_PACKET_RECEIVED);
             }
             /* If the packet contains a network password */
-            else if(tmpRxPacket->header.packetType == RADIO_PACKET_TYPE_STRING_PACKET)
+            else if(packetHeader->packetType == RADIO_PACKET_TYPE_PASSW)
             {
                 stringPacket = (struct StringPacket *) rxPacket->payload;
 
+                latestRxPacket.msgType = 0;
 
                 // Check that the node is in the wait list
                 if (stringPacket->header.sourceAddress == bindWaitNode.address)
@@ -439,8 +415,14 @@ static void rxDoneCallback(EasyLink_RxPacket * rxPacket, EasyLink_Status status)
                         // If there is space in the network, add the node
                         if(addNewNode(&bindWaitNode))
                         {
+                            latestRxPacket.msgType = MSG_TYPE_NEW_UNIT;
+                            latestRxPacket.nodeInfo.address = bindWaitNode.address;
+                            latestRxPacket.nodeInfo.nodeType = bindWaitNode.nodeType;
+                            latestRxPacket.nodeInfo.latestRssi = bindWaitNode.latestRssi;
+
                             /* Post radioTast that connection was successful */
                             Event_post(radioOperationEventHandle, RADIO_EVENT_CONNECT_SUCCESS | RADIO_EVENT_VALID_PACKET_RECEIVED);
+
 
                             // Maybe indicate that the wait spot is free.
                             // But it won't matter, really.
@@ -461,40 +443,25 @@ static void rxDoneCallback(EasyLink_RxPacket * rxPacket, EasyLink_Status status)
                 {
                     Event_post(radioOperationEventHandle, RADIO_EVENT_CONNECT_FAIL | RADIO_EVENT_VALID_PACKET_RECEIVED);
                 }
+            }
+            else if(packetHeader->packetType == RADIO_PACKET_TYPE_STRING_PACKET)
+            {
+                stringPacket = (struct StringPacket *) rxPacket->payload;
 
-                /* Possible Implementation: "waitList"
-                 * A node wait list for nodes that haven't been authenticated yet.
-                 * Instead of only one wait spot.
-                 */
+                latestRxPacket.msgType = MSG_TYPE_STRING;
 
-                /*for (i = 0; i < CONCENTRATOR_MAX_NODES; i++)
-                {
-                    if(rxPacket->payload[0] == bindWaitList[i]->address)
-                    {
-                        if(checkPassw(&rxPacket->payload[2]))
-                        {
-                            if(addNewNode(bindWaitList[i]))
-                            {
-                                if (i >= nNodesWaiting)
-                                {
-
-                                }
-
-
-
-                            }
-                        }
-                    }
-                }*/
             }
             else
             {
+                latestRxPacket.msgType = 0;
                 // A NODE IS TRYING TO SEND DATA WITHOUT PERMISSION IN THIS NETWORK!!!
             }
         }
     }
     else
     {
+        latestRxPacket.msgType = 0;
+
         /* Signal invalid packet received */
         Event_post(radioOperationEventHandle, RADIO_EVENT_INVALID_PACKET_RECEIVED);
     }
@@ -520,6 +487,7 @@ static uint8_t isKnownNodeAddress(uint8_t address)
 {
     uint8_t found = 0;
     uint8_t i;
+
     for (i = 0; i < CONCENTRATOR_MAX_NODES; i++)
     {
         if (knownSensorNodes[i].address == address)
@@ -560,7 +528,8 @@ static uint8_t addNewNode(struct NWK_Node* node)
     return 0;
 }
 
-/* Replace node with another one */
+/* Replace node with existing
+ */
 static void replaceNode(uint8_t address, struct NWK_Node* node)
 {
     removeNode(address);
@@ -568,7 +537,8 @@ static void replaceNode(uint8_t address, struct NWK_Node* node)
     *nodeIter = *node;
 }
 
-/* Removes a node */
+/* Removes a node
+ */
 static void removeNode(uint8_t address)
 {
     uint8_t i;
