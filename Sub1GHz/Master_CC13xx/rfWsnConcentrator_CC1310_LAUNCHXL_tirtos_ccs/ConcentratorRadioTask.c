@@ -83,9 +83,6 @@ Event_Struct radioOperationEvent;  /* not static so you can see in ROV */
 static Event_Handle radioOperationEventHandle;
 
 
-
-
-
 static ConcentratorRadio_PacketReceivedCallback packetReceivedCallback;
 static union ConcentratorPacket latestRxPacket;
 static EasyLink_TxPacket txPacket;
@@ -101,9 +98,6 @@ static char password[PASSWORD_LENGTH];
 static struct NWK_Node bindWaitNode;
 static struct NWK_Node* bindWaitList[CONCENTRATOR_MAX_NODES];
 static struct NWK_Node* nodeIter = knownSensorNodes;
-
-static uint8_t nFreeSlots;
-static uint8_t freeSlots[CONCENTRATOR_MAX_NODES];
 
 
 /***** Prototypes *****/
@@ -134,22 +128,9 @@ static void removeNode(uint8_t address);
 /***** Function definitions *****/
 void ConcentratorRadioTask_init(void)
 {
-    /* Open LED pins */
-    /*ledPinHandle = PIN_open(&ledPinState, ledPinTable);
-    if (!ledPinHandle)
-    {
-        System_abort("Error initializing board 3.3V domain pins\n");
-    }*/
-
     uint8_t i;
 
-    /*for (i = 0; i < CONCENTRATOR_MAX_NODES; i++)
-    {
-        freeSlots[i] = i;
-    }*/
-
     GPIO_init();
-
 
     password[0] = '4';
     password[1] = '3';
@@ -219,12 +200,9 @@ static void concentratorRadioTaskFunction(UArg arg0, UArg arg1)
             }
             else
             {
+                /* Send ack packet */
                 sendAck(latestRxPacket.nodeInfo.address);
             }
-
-
-            /* Send ack packet */
-            //sendAck(latestRxPacket.header.sourceAddress);
 
             /* Call packet received callback */
             notifyPacketReceived(&latestRxPacket);
@@ -233,10 +211,6 @@ static void concentratorRadioTaskFunction(UArg arg0, UArg arg1)
             if(EasyLink_receiveAsync(rxDoneCallback, 0) != EasyLink_Status_Success) {
                 System_abort("EasyLink_receiveAsync failed");
             }
-
-            /* toggle Activity LED */
-            //PIN_setOutputValue(ledPinHandle, CONCENTRATOR_ACTIVITY_LED,
-                    //!PIN_getOutputValue(CONCENTRATOR_ACTIVITY_LED));
         }
 
         /* If invalid packet received */
