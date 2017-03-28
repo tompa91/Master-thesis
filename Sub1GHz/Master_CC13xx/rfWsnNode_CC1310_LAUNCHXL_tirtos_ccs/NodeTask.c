@@ -387,19 +387,30 @@ void commissioningHandler(UART_Handle uart)
                 //UART_write(uart, wrong_pass, sizeof(wrong_pass));
 
                 //UART_write(uart, enter_pass, sizeof(enter_pass));
-                uartPacket
+
+                // Set UART packet flag wrong password
+                uartPacket.flag = RADIO_EVENT_WRONG_PASSW;
+
+                // Send UART packet to CC2650
+                uartWrite(uart, uartPacket, 5);
             }
             else
             {
+                uartPacket.flag = RADIO_EVENT_AUTHENTICATE;
+
                 // Tell user to enter password
-                UART_write(uart, enter_pass, sizeof(enter_pass));
+                uartWrite(uart, &uartPacket, 5);
             }
 
             input = ' ';
             int i = 0;
 
-            // Read password via UART
-            while ((i < PASSWORD_LENGTH) && (input != 13))
+            // Wait for password entry
+            uartRead(uart, &uartPacket, &size);
+
+
+
+            /*while ((i < PASSWORD_LENGTH) && (input != 13))
             {
                 UART_read(uart, &input, 1);
 
@@ -418,14 +429,15 @@ void commissioningHandler(UART_Handle uart)
                 }
 
                 UART_write(uart, &echo, size);
-            }
+            }*/
 
             // Add null termination
-            passw[i] = '\0';
-            i++;
+            //passw[i] = '\0';
+            //i++;
+
 
             // Send the password to concentrator
-            NodeRadioTask_sendData((void *) passw, i, RADIO_EVENT_SEND_PASSW);
+            NodeRadioTask_sendData((void *) uartPacket.message, size, RADIO_EVENT_SEND_PASSW);
         }
 
         /* If the network is full:
@@ -433,12 +445,16 @@ void commissioningHandler(UART_Handle uart)
          */
         if (cEvents & RADIO_EVENT_NETW_FULL)
         {
-            UART_write(uart, netw_full, sizeof(netw_full));
+            uartPacket.flag = RADIO_EVENT_NETW_FULL;
+
+            uartWrite(uart, &uartPacket, 5);
+
+            /*UART_write(uart, netw_full, sizeof(netw_full));
 
             UART_read(uart, &input, 1);
-            UART_write(uart, &input, 1);
+            UART_write(uart, &input, 1);*/
 
-            do {
+            /*do {
                 if(input == 'y' || input == 'Y')
                 {
                     /* Alert concentrator to send a list of existing nodes
@@ -446,16 +462,17 @@ void commissioningHandler(UART_Handle uart)
                      */
                     //  //  EDIT
                     /************************/
-                    UART_write(uart, skip2rows, sizeof(skip2rows));
+                    //UART_write(uart, skip2rows, sizeof(skip2rows));
 
-                }
-                else if(input == 'n' || input == 'N')
-                {
+                //}
+                //else if(input == 'n' || input == 'N')
+                //{
                     /* Do nothing */
-                    UART_write(uart, skip2rows, sizeof(skip2rows));
+                    //UART_write(uart, skip2rows, sizeof(skip2rows));
 
-                }
-            } while(input != 'y' || input != 'Y' || input != 'n' || input != 'N');
+              //  }
+            //} while(input != 'y' || input != 'Y' || input != 'n' || input != 'N');
+
         }
 
         /* If this unit/node already was known by the network
