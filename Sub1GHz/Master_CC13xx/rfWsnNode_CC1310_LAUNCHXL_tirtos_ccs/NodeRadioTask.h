@@ -68,6 +68,7 @@ enum NodeRadioOperationStatus {
 #define RADIO_EVENT_WRONG_PASSW         (uint32_t)(1 << 11)
 #define RADIO_EVENT_INIT                (uint32_t)(1 << 12)
 #define NODE_ALREADY_KNOWN              (uint32_t)(1 << 13)
+#define AM_I_CONNECTED                  (uint32_t)(1 << 14)
 
 #define STATUS_EVENT_FLAGS              (RADIO_EVENT_CONNECT_FAIL | RADIO_EVENT_CONNECT_SUCCESS | RADIO_EVENT_NETW_FULL | RADIO_EVENT_AUTHENTICATE | RADIO_EVENT_WRONG_PASSW | NODE_ALREADY_KNOWN)
 

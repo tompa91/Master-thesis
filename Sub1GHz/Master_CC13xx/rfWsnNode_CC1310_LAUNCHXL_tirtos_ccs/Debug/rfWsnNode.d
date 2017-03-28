@@ -222,6 +222,7 @@ rfWsnNode.obj: /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/kern
 rfWsnNode.obj: /opt/ti/xdctools_3_32_01_22_core/packages/xdc/runtime/IModule.h
 rfWsnNode.obj: /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/kernel/tirtos/packages/ti/sysbios/knl/Event__epilogue.h
 rfWsnNode.obj: ../NodeTask.h
+rfWsnNode.obj: ../uartecho.h
 
 ../rfWsnNode.c: 
 /opt/ti/xdctools_3_32_01_22_core/packages/xdc/std.h: 
@@ -445,3 +446,4 @@ rfWsnNode.obj: ../NodeTask.h
 /opt/ti/xdctools_3_32_01_22_core/packages/xdc/runtime/IModule.h: 
 /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/kernel/tirtos/packages/ti/sysbios/knl/Event__epilogue.h: 
 ../NodeTask.h: 
+../uartecho.h: 

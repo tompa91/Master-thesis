@@ -169,10 +169,10 @@ easylink/EasyLink.obj: /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00
 easylink/EasyLink.obj: /opt/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/include/string.h
 easylink/EasyLink.obj: /opt/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/include/linkage.h
 easylink/EasyLink.obj: /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/source/ti/devices/cc13x0/driverlib/rf_prop_cmd.h
-easylink/EasyLink.obj: /home/mike/Master_CC13xx/rfWsnNode_CC1310_LAUNCHXL_tirtos_ccs/smartrf_settings/smartrf_settings_predefined.h
+easylink/EasyLink.obj: /home/mike/Documents/Exjobb/Master-thesis/Sub1GHz/Master_CC13xx/rfWsnNode_CC1310_LAUNCHXL_tirtos_ccs/smartrf_settings/smartrf_settings_predefined.h
 easylink/EasyLink.obj: /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/source/ti/devices/cc13x0/driverlib/rf_hs_mailbox.h
 easylink/EasyLink.obj: /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/source/ti/devices/cc13x0/driverlib/rf_hs_cmd.h
-easylink/EasyLink.obj: /home/mike/Master_CC13xx/rfWsnNode_CC1310_LAUNCHXL_tirtos_ccs/smartrf_settings/smartrf_settings.h
+easylink/EasyLink.obj: /home/mike/Documents/Exjobb/Master-thesis/Sub1GHz/Master_CC13xx/rfWsnNode_CC1310_LAUNCHXL_tirtos_ccs/smartrf_settings/smartrf_settings.h
 easylink/EasyLink.obj: /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/kernel/tirtos/packages/ti/sysbios/knl/Semaphore.h
 easylink/EasyLink.obj: /opt/ti/xdctools_3_32_01_22_core/packages/xdc/runtime/Error.h
 easylink/EasyLink.obj: /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/kernel/tirtos/packages/ti/sysbios/BIOS.h
@@ -188,7 +188,7 @@ easylink/EasyLink.obj: /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00
 easylink/EasyLink.obj: /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/source/ti/devices/cc13x0/driverlib/../driverlib/rom.h
 easylink/EasyLink.obj: /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/source/ti/devices/cc13x0/inc/hw_ccfg.h
 easylink/EasyLink.obj: /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/source/ti/devices/cc13x0/inc/hw_ccfg_simple_struct.h
-easylink/EasyLink.obj: /home/mike/Master_CC13xx/rfWsnNode_CC1310_LAUNCHXL_tirtos_ccs/Board.h
+easylink/EasyLink.obj: /home/mike/Documents/Exjobb/Master-thesis/Sub1GHz/Master_CC13xx/rfWsnNode_CC1310_LAUNCHXL_tirtos_ccs/Board.h
 easylink/EasyLink.obj: /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/source/ti/drivers/ADC.h
 easylink/EasyLink.obj: /opt/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/include/stddef.h
 easylink/EasyLink.obj: /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/source/ti/drivers/ADCBuf.h
@@ -200,7 +200,7 @@ easylink/EasyLink.obj: /opt/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/includ
 easylink/EasyLink.obj: /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/source/ti/drivers/UART.h
 easylink/EasyLink.obj: /opt/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/include/stddef.h
 easylink/EasyLink.obj: /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/source/ti/drivers/Watchdog.h
-easylink/EasyLink.obj: /home/mike/Master_CC13xx/rfWsnNode_CC1310_LAUNCHXL_tirtos_ccs/CC1310_LAUNCHXL.h
+easylink/EasyLink.obj: /home/mike/Documents/Exjobb/Master-thesis/Sub1GHz/Master_CC13xx/rfWsnNode_CC1310_LAUNCHXL_tirtos_ccs/CC1310_LAUNCHXL.h
 easylink/EasyLink.obj: /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/source/ti/drivers/PIN.h
 easylink/EasyLink.obj: /opt/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/include/stddef.h
 easylink/EasyLink.obj: /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/source/ti/devices/cc13x0/driverlib/ioc.h
@@ -383,10 +383,10 @@ easylink/EasyLink.obj: /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00
 /opt/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/include/string.h: 
 /opt/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/include/linkage.h: 
 /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/source/ti/devices/cc13x0/driverlib/rf_prop_cmd.h: 
-/home/mike/Master_CC13xx/rfWsnNode_CC1310_LAUNCHXL_tirtos_ccs/smartrf_settings/smartrf_settings_predefined.h: 
+/home/mike/Documents/Exjobb/Master-thesis/Sub1GHz/Master_CC13xx/rfWsnNode_CC1310_LAUNCHXL_tirtos_ccs/smartrf_settings/smartrf_settings_predefined.h: 
 /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/source/ti/devices/cc13x0/driverlib/rf_hs_mailbox.h: 
 /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/source/ti/devices/cc13x0/driverlib/rf_hs_cmd.h: 
-/home/mike/Master_CC13xx/rfWsnNode_CC1310_LAUNCHXL_tirtos_ccs/smartrf_settings/smartrf_settings.h: 
+/home/mike/Documents/Exjobb/Master-thesis/Sub1GHz/Master_CC13xx/rfWsnNode_CC1310_LAUNCHXL_tirtos_ccs/smartrf_settings/smartrf_settings.h: 
 /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/kernel/tirtos/packages/ti/sysbios/knl/Semaphore.h: 
 /opt/ti/xdctools_3_32_01_22_core/packages/xdc/runtime/Error.h: 
 /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/kernel/tirtos/packages/ti/sysbios/BIOS.h: 
@@ -402,7 +402,7 @@ easylink/EasyLink.obj: /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00
 /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/source/ti/devices/cc13x0/driverlib/../driverlib/rom.h: 
 /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/source/ti/devices/cc13x0/inc/hw_ccfg.h: 
 /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/source/ti/devices/cc13x0/inc/hw_ccfg_simple_struct.h: 
-/home/mike/Master_CC13xx/rfWsnNode_CC1310_LAUNCHXL_tirtos_ccs/Board.h: 
+/home/mike/Documents/Exjobb/Master-thesis/Sub1GHz/Master_CC13xx/rfWsnNode_CC1310_LAUNCHXL_tirtos_ccs/Board.h: 
 /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/source/ti/drivers/ADC.h: 
 /opt/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/include/stddef.h: 
 /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/source/ti/drivers/ADCBuf.h: 
@@ -414,7 +414,7 @@ easylink/EasyLink.obj: /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00
 /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/source/ti/drivers/UART.h: 
 /opt/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/include/stddef.h: 
 /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/source/ti/drivers/Watchdog.h: 
-/home/mike/Master_CC13xx/rfWsnNode_CC1310_LAUNCHXL_tirtos_ccs/CC1310_LAUNCHXL.h: 
+/home/mike/Documents/Exjobb/Master-thesis/Sub1GHz/Master_CC13xx/rfWsnNode_CC1310_LAUNCHXL_tirtos_ccs/CC1310_LAUNCHXL.h: 
 /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/source/ti/drivers/PIN.h: 
 /opt/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/include/stddef.h: 
 /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/source/ti/devices/cc13x0/driverlib/ioc.h: 

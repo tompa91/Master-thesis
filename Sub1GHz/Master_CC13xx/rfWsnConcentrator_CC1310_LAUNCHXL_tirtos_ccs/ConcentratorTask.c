@@ -177,17 +177,6 @@ static void packetReceivedCallback(union ConcentratorPacket* packet, int8_t rssi
     {
         uint8_t i;
 
-        // Blink Green LED 5 times when data received
-
-        for(i = 0; i < 5; i++) {
-            GPIO_toggle(Board_GPIO_LED0);
-
-            CPUdelay(10000000);
-
-            GPIO_toggle(Board_GPIO_LED0);
-
-            CPUdelay(10000000);
-        }
 
         /* Save the values */
         latestActiveAdcSensorNode.address = packet->nodeInfo.address;
@@ -204,7 +193,7 @@ static void packetReceivedCallback(union ConcentratorPacket* packet, int8_t rssi
 
         // Blink Green LED 5 times when data received
 
-        for(i = 0; i < 5; i++) {
+        /*for(i = 0; i < 5; i++) {
             GPIO_toggle(Board_GPIO_LED0);
 
             CPUdelay(10000000);
@@ -212,7 +201,7 @@ static void packetReceivedCallback(union ConcentratorPacket* packet, int8_t rssi
             GPIO_toggle(Board_GPIO_LED0);
 
             CPUdelay(10000000);
-        }
+        }*/
 
 
         /* Save the values */
@@ -229,7 +218,7 @@ static void packetReceivedCallback(union ConcentratorPacket* packet, int8_t rssi
 
         // Blink Red LED 5 times when new unit is added
 
-        for(i = 0; i < 5; i++) {
+        /*for(i = 0; i < 5; i++) {
             GPIO_toggle(Board_GPIO_LED1);
 
             CPUdelay(10000000);
@@ -237,7 +226,7 @@ static void packetReceivedCallback(union ConcentratorPacket* packet, int8_t rssi
             GPIO_toggle(Board_GPIO_LED1);
 
             CPUdelay(10000000);
-        }
+        }*/
     }
 }
 
@@ -249,7 +238,7 @@ static void updateNode(struct AdcSensorNode* node)
         if (knownSensorNodes[i].address == node->address)
         {
             // Blink i times
-            for(j = 0; j < i + 1; j++) {
+            /*for(j = 0; j < i + 1; j++) {
                 GPIO_toggle(Board_GPIO_LED0);
 
                 CPUdelay(10000000);
@@ -257,7 +246,7 @@ static void updateNode(struct AdcSensorNode* node)
                 GPIO_toggle(Board_GPIO_LED0);
 
                 CPUdelay(10000000);
-            }
+            }*/
         }
     }
 }

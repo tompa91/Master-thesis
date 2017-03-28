@@ -33,6 +33,7 @@
 /***** Includes *****/
 
 
+#include "string.h"
 #include <xdc/std.h>
 #include <xdc/runtime/System.h>
 
@@ -55,6 +56,7 @@
 #include "NodeRadioTask.h"
 
 
+
 /***** Defines *****/
 
 #define COMMISSIONING
@@ -66,8 +68,8 @@
 #define NODE_EVENT_NEW_ADC_VALUE    (uint32_t)(1 << 0)
 
 #ifdef COMMISSIONING
-#define COMMISSION_TASK_STACK_SIZE  1024
-#define COMMISSION_TASK_PRIORITY    5
+#define USER_TASK_STACK_SIZE  1024
+#define USER_TASK_PRIORITY    5
 
 #define CONNECT_EVENT_ALL           0xFFFFFFFF
 #define CONNECT_SUCCESS_EVENT       (uint32_t)(1 << 0)
@@ -95,11 +97,20 @@ static Event_Handle nodeEventHandle;
 static uint16_t txData;
 
 #ifdef COMMISSIONING
-static Task_Params commissionTaskParams;
-Task_Struct commissionTask;
-static uint8_t commissionTaskStack[COMMISSION_TASK_STACK_SIZE];
+static Task_Params userTaskParams;
+Task_Struct userTaskStruct;
+static uint8_t userTaskStack[USER_TASK_STACK_SIZE];
 Event_Struct connectEvent;
 static Event_Handle connectEventHandle;
+const char  skip2rows[]         = "\r\n\r\n";
+const char  enter_pass[]        = "Enter network password: ";
+const char  wrong_pass[]        = "Wrong password, try again!\r\n";
+const char  netw_full[]         = "The network is full. To replace an existing node, press Y. Press n if nothing is to be done.\r\n";
+const char  connected[]         = "Connection to Concentrator established.\r\n\r\n";
+const char  connection_failed[] = "Connection failed. Try again? Y/n: ";
+
+
+static char passw[PASSWORD_LENGTH];
 #endif //COMMISSIONING
 
 
@@ -130,13 +141,16 @@ static PIN_State ledPinState;
 
 /***** Prototypes *****/
 #ifdef COMMISSIONING
-static void commissionTaskFunction(UArg arg0, UArg arg1);
+static void userTask(UArg arg0, UArg arg1);
 #endif //COMMISSIONING
 
 static void nodeTaskFunction(UArg arg0, UArg arg1);
 void fastReportTimeoutCallback(UArg arg0);
 void adcCallback(uint16_t adcValue);
 void buttonCallback(PIN_Handle handle, PIN_Id pinId);
+void uartRead(UART_Handle uart, struct UARTPacket *data, uint8_t *dataLen);
+void uartWrite(UART_Handle uart, struct UARTPacket *data, uint8_t dataLen);
+void commissioningHandler(UART_Handle uart, uint32_t cEvents);
 
 /***** Function definitions *****/
 
@@ -144,7 +158,7 @@ void buttonCallback(PIN_Handle handle, PIN_Id pinId);
  *  Initialization of the commissioning task
  */
 #ifdef COMMISSIONING
-void commissionTask_init(void)
+void userTask_init(void)
 {
     /* Create event used internally for state changes */
     Event_Params eventParam2;
@@ -153,11 +167,11 @@ void commissionTask_init(void)
     connectEventHandle = Event_handle(&connectEvent);
 
     /* Create the node task */
-    Task_Params_init(&commissionTaskParams);
-    commissionTaskParams.stackSize = COMMISSION_TASK_STACK_SIZE;
-    commissionTaskParams.priority = COMMISSION_TASK_PRIORITY;
-    commissionTaskParams.stack = &commissionTaskStack;
-    Task_construct(&commissionTask, commissionTaskFunction, &commissionTaskParams, NULL);
+    Task_Params_init(&userTaskParams);
+    userTaskParams.stackSize = USER_TASK_STACK_SIZE;
+    userTaskParams.priority = USER_TASK_PRIORITY;
+    userTaskParams.stack = &userTaskStack;
+    Task_construct(&userTaskStruct, userTask, &userTaskParams, NULL);
 }
 #endif //COMMISSIONING
 
@@ -193,7 +207,7 @@ void NodeTask_init(void)
  *  ======== gpioButtonFxn0 ========
  *  Callback function for the GPIO interrupt on Board_GPIO_BUTTON1.
  *
- *  Signaling commissionTask to initiate a connection with a
+ *  Signaling userTask to initiate a connection with a
  *  concentrator.
  */
 void gpioButtonFxn0(uint_least8_t index)
@@ -202,23 +216,17 @@ void gpioButtonFxn0(uint_least8_t index)
 
     Event_post(commissionEventHandle, RADIO_EVENT_INIT);
 }
+static uint8_t connected;
 
-static void commissionTaskFunction(UArg arg0, UArg arg1)
+static void userTask(UArg arg0, UArg arg1)
 {
-    uint8_t     size, data;
-    char        input;
-    char        echo[2];
-    const char  skip2rows[] = "\r\n\r\n";
-    const char  welcome[] = "Welcome to the WSN Node program!\r\n\r\n";
-    const char  enter_pass[] = "Enter network password: ";
-    const char  wrong_pass[] = "Wrong password, try again!\r\n";
-    const char  netw_full[] = "The network is full. To replace an existing node, press Y. Press n if nothing is to be done.\r\n";
-    const char  connected[] = "Connection to Concentrator established.\r\n\r\n";
-    const char  connection_failed[] = "Connection failed. Try again? Y/n: ";
     UART_Handle uart;
     UART_Params uartParams;
+    struct UARTPacket uartPacket;
+    uint8_t pktSize;
 
-    char passw[PASSWORD_LENGTH];
+    connected = 0;
+
 
     /* install Button callback */
     GPIO_setCallback(Board_GPIO_BUTTON0, gpioButtonFxn0);
@@ -243,15 +251,117 @@ static void commissionTaskFunction(UArg arg0, UArg arg1)
         while (1);
     }
 
-    UART_write(uart, welcome, sizeof(welcome));
+    struct UARTPacket test;
+    test.flag = 0xF0F0F0F0;
+    test.rssi = 56;
+    strcpy(test.message, "welcome");
+
+    uartWrite(uart, &test, sizeof(struct UARTPacket));
 
     while(1)
     {
+        // Wait for UART packet read...
+        uartRead(uart, &uartPacket, &pktSize);
+
+        //switch (buffer.flaggor)
+            //post radioTask...
+
+        commissioningHandler(uart, )
+
+
+
+        switch(uartPacket.flag)
+        {
+        case (readVar):
+        {
+
+        }
+
+        case (dunnoVar & connected):
+        {
+        }
+
+        default:
+        {
+            if(commisioningHandle == true )
+                connected = 0xFF;
+        }
+        uint32_t cEvents = Event_pend(commissionEventHandle, 0, RADIO_EVENT_CONNECT_FAIL
+                                              | RADIO_EVENT_CONNECT_SUCCESS | RADIO_EVENT_AUTHENTICATE
+                                              | RADIO_EVENT_NETW_FULL | RADIO_EVENT_WRONG_PASSW
+                                              | RADIO_EVENT_INIT, BIOS_WAIT_FOREVER);
+        break;
+        }
+        if(uartPacket.flag & )
+        commissionHandle(uart, uartPacket.flag);
+
+        // wait for radio event
+
         // Wait for directions
         uint32_t cEvents = Event_pend(commissionEventHandle, 0, RADIO_EVENT_CONNECT_FAIL
                                       | RADIO_EVENT_CONNECT_SUCCESS | RADIO_EVENT_AUTHENTICATE
                                       | RADIO_EVENT_NETW_FULL | RADIO_EVENT_WRONG_PASSW
                                       | RADIO_EVENT_INIT, BIOS_WAIT_FOREVER);
+
+
+
+        uartWrite(uart, )
+        //UART_write() tillbaka till CC2650.
+
+
+    }
+}
+
+void uartRead(UART_Handle uart, struct UARTPacket *data, uint8_t *dataLen)
+{
+    uint8_t i = 0;
+    char input;
+    char tmp_data[128];
+
+    while(1)
+    {
+        UART_read(uart, &input, 1);
+        *(tmp_data + i) = input;
+
+        if(*(tmp_data + i) == '\0')
+        {
+
+            break;
+        }
+        else
+            i++;
+    }
+
+    *dataLen = i;
+
+    data->flag = (uint32_t) tmp_data[0];/*(tmp_data[0] << 24) | (tmp_data[1] << 16) |
+                 (tmp_data[2] << 8) | (tmp_data[3]);*/
+
+    memcpy(data->message, tmp_data + 5, *dataLen - 5);
+}
+
+void uartWrite(UART_Handle uart, struct UARTPacket *data, uint8_t dataLen)
+{
+    char *buffer;
+    buffer = (char *) data;
+    UART_write(uart, buffer, dataLen);
+}
+
+void commissioningHandler(UART_Handle uart)
+{
+    uint8_t     size, data;
+    char        input;
+    char        echo[2];
+    struct UARTPacket uartPacket;
+
+    NodeRadioTask_sendData((void *) data, 0, RADIO_EVENT_SEND_INIT_MSG);
+
+    while(!connected)
+    {
+        uint32_t cEvents = Event_pend(commissionEventHandle, 0, RADIO_EVENT_CONNECT_FAIL
+                                              | RADIO_EVENT_CONNECT_SUCCESS | RADIO_EVENT_AUTHENTICATE
+                                              | RADIO_EVENT_NETW_FULL | RADIO_EVENT_WRONG_PASSW
+                                              | RADIO_EVENT_INIT, BIOS_WAIT_FOREVER);
 
         /* If the user wants to connect this unit/node to a concentrator,
          * an InitPacket is broadcasted to concentrators nearby.
@@ -272,11 +382,12 @@ static void commissionTaskFunction(UArg arg0, UArg arg1)
             // If the previously entered password was wrong
             if (cEvents & RADIO_EVENT_WRONG_PASSW)
             {
-                UART_write(uart, skip2rows, sizeof(skip2rows));
+                //UART_write(uart, skip2rows, sizeof(skip2rows));
                 // Tell user that the password was wrong and to try again
-                UART_write(uart, wrong_pass, sizeof(wrong_pass));
+                //UART_write(uart, wrong_pass, sizeof(wrong_pass));
 
-                UART_write(uart, enter_pass, sizeof(enter_pass));
+                //UART_write(uart, enter_pass, sizeof(enter_pass));
+                uartPacket
             }
             else
             {
@@ -357,7 +468,9 @@ static void commissionTaskFunction(UArg arg0, UArg arg1)
             // Alert user that connection is established
             UART_write(uart, connected, sizeof(connected));
 
-            Event_post(connectEventHandle, RADIO_EVENT_CONNECT_SUCCESS);
+            connected = 1;
+
+            //Event_post(connectEventHandle, RADIO_EVENT_CONNECT_SUCCESS);
         }
 
         /* If connection to network failed, tell the user
@@ -369,9 +482,13 @@ static void commissionTaskFunction(UArg arg0, UArg arg1)
              */
             UART_write(uart, connection_failed, sizeof(connection_failed));
             /* . . . */
+            break;
+
         }
     }
 }
+
+
 #endif //COMMISSIONING
 
 
@@ -464,7 +581,7 @@ static void nodeTaskFunction(UArg arg0, UArg arg1)
             txData = 2;
 
             /* Send ADC value to concentrator */
-            NodeRadioTask_sendData((void *) txData, 2, RADIO_EVENT_SEND_DATA);
+            NodeRadioTask_sendData((void *) &txData, 2, RADIO_EVENT_SEND_DATA);
         }
     }
 }

@@ -33,7 +33,18 @@
 #ifndef TASKS_NODETASK_H_
 #define TASKS_NODETASK_H_
 
+#define UART_PACKET_SIZE    64
+
+void userTask_init(void);
+
 /* Initializes the Node Task and creates all TI-RTOS objects */
 void NodeTask_init(void);
+
+struct UARTPacket {
+    uint32_t flag;
+    uint8_t rssi;
+    char message[UART_PACKET_SIZE - 5];
+};
+
 
 #endif /* TASKS_NODETASK_H_ */

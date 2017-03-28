@@ -14,6 +14,7 @@ ORDERED_OBJS += \
 "./SceAdc.obj" \
 "./ccfg.obj" \
 "./rfWsnNode.obj" \
+"./uartecho.obj" \
 "./easylink/EasyLink.obj" \
 "./sce/scif.obj" \
 "./sce/scif_framework.obj" \
@@ -179,8 +180,8 @@ rfWsnNode_CC1310_LAUNCHXL_tirtos_ccs.hex: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(BIN_OUTPUTS__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "CC1310_LAUNCHXL.obj" "NodeRadioTask.obj" "NodeTask.obj" "SceAdc.obj" "ccfg.obj" "rfWsnNode.obj" "easylink/EasyLink.obj" "sce/scif.obj" "sce/scif_framework.obj" "sce/scif_osal_tirtos.obj" "smartrf_settings/smartrf_settings.obj" "smartrf_settings/smartrf_settings_predefined.obj" 
-	-$(RM) "CC1310_LAUNCHXL.d" "NodeRadioTask.d" "NodeTask.d" "SceAdc.d" "ccfg.d" "rfWsnNode.d" "easylink/EasyLink.d" "sce/scif.d" "sce/scif_framework.d" "sce/scif_osal_tirtos.d" "smartrf_settings/smartrf_settings.d" "smartrf_settings/smartrf_settings_predefined.d" 
+	-$(RM) "CC1310_LAUNCHXL.obj" "NodeRadioTask.obj" "NodeTask.obj" "SceAdc.obj" "ccfg.obj" "rfWsnNode.obj" "uartecho.obj" "easylink/EasyLink.obj" "sce/scif.obj" "sce/scif_framework.obj" "sce/scif_osal_tirtos.obj" "smartrf_settings/smartrf_settings.obj" "smartrf_settings/smartrf_settings_predefined.obj" 
+	-$(RM) "CC1310_LAUNCHXL.d" "NodeRadioTask.d" "NodeTask.d" "SceAdc.d" "ccfg.d" "rfWsnNode.d" "uartecho.d" "easylink/EasyLink.d" "sce/scif.d" "sce/scif_framework.d" "sce/scif_osal_tirtos.d" "smartrf_settings/smartrf_settings.d" "smartrf_settings/smartrf_settings_predefined.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 

@@ -12,7 +12,8 @@ C_SRCS += \
 ../NodeTask.c \
 ../SceAdc.c \
 ../ccfg.c \
-../rfWsnNode.c 
+../rfWsnNode.c \
+../uartecho.c 
 
 C_DEPS += \
 ./CC1310_LAUNCHXL.d \
@@ -20,7 +21,8 @@ C_DEPS += \
 ./NodeTask.d \
 ./SceAdc.d \
 ./ccfg.d \
-./rfWsnNode.d 
+./rfWsnNode.d \
+./uartecho.d 
 
 OBJS += \
 ./CC1310_LAUNCHXL.obj \
@@ -28,7 +30,8 @@ OBJS += \
 ./NodeTask.obj \
 ./SceAdc.obj \
 ./ccfg.obj \
-./rfWsnNode.obj 
+./rfWsnNode.obj \
+./uartecho.obj 
 
 OBJS__QUOTED += \
 "CC1310_LAUNCHXL.obj" \
@@ -36,7 +39,8 @@ OBJS__QUOTED += \
 "NodeTask.obj" \
 "SceAdc.obj" \
 "ccfg.obj" \
-"rfWsnNode.obj" 
+"rfWsnNode.obj" \
+"uartecho.obj" 
 
 C_DEPS__QUOTED += \
 "CC1310_LAUNCHXL.d" \
@@ -44,7 +48,8 @@ C_DEPS__QUOTED += \
 "NodeTask.d" \
 "SceAdc.d" \
 "ccfg.d" \
-"rfWsnNode.d" 
+"rfWsnNode.d" \
+"uartecho.d" 
 
 C_SRCS__QUOTED += \
 "../CC1310_LAUNCHXL.c" \
@@ -52,6 +57,7 @@ C_SRCS__QUOTED += \
 "../NodeTask.c" \
 "../SceAdc.c" \
 "../ccfg.c" \
-"../rfWsnNode.c" 
+"../rfWsnNode.c" \
+"../uartecho.c" 
 
 

@@ -255,6 +255,9 @@ static void nodeRadioTaskFunction(UArg arg0, UArg arg1)
             }
             prevTicks = currentTicks;
 
+            dmSensorPacket.header.sourceAddress = nodeAddress;
+            dmSensorPacket.header.packetType = RADIO_PACKET_TYPE_DATA_PACKET;
+
             dmSensorPacket.batt = AONBatMonBatteryVoltageGet();
             dmSensorPacket.adcValue = appData;
             dmSensorPacket.button = !GPIO_read(Board_PIN_BUTTON0);

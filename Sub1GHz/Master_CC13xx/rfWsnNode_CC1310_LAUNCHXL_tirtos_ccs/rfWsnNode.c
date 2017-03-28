@@ -45,7 +45,7 @@
 
 #include "NodeRadioTask.h"
 #include "NodeTask.h"
-
+#include "uartecho.h"
 
 /*
  *  ======== main ========
@@ -54,12 +54,15 @@ int main(void)
 {
     /* Call driver init functions. */
     Board_initGeneral();
+    Board_initUART();
     //Display_init();
 
     /* Initialize sensor node tasks */
     NodeRadioTask_init();
-    commissionTask_init();
+    userTask_init();
     NodeTask_init();
+    //UARTtask1_Init();
+    //UARTtask2_Init();
 
 
     /* Start BIOS */

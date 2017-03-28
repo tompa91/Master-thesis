@@ -1,6 +1,8 @@
 # FIXED
 
 NodeTask.obj: ../NodeTask.c
+NodeTask.obj: /opt/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/include/string.h
+NodeTask.obj: /opt/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/include/linkage.h
 NodeTask.obj: /opt/ti/xdctools_3_32_01_22_core/packages/xdc/std.h
 NodeTask.obj: /opt/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/include/stdarg.h
 NodeTask.obj: /opt/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/include/stddef.h
@@ -216,6 +218,8 @@ NodeTask.obj: ../NodeRadioTask.h
 NodeTask.obj: /home/mike/ti/tirex-content/simplelink_cc13x0_sdk_1_00_00_13/kernel/tirtos/packages/ti/sysbios/knl/Event.h
 
 ../NodeTask.c: 
+/opt/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/include/string.h: 
+/opt/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/include/linkage.h: 
 /opt/ti/xdctools_3_32_01_22_core/packages/xdc/std.h: 
 /opt/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/include/stdarg.h: 
 /opt/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/include/stddef.h: 

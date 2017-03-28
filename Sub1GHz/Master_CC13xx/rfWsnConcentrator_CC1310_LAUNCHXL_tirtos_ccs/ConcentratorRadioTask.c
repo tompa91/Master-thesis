@@ -190,12 +190,13 @@ static void concentratorRadioTaskFunction(UArg arg0, UArg arg1)
         /* If valid packet received */
         if(events & RADIO_EVENT_VALID_PACKET_RECEIVED)
         {
-            /* Did the post include status flag? */
-            if(events & STATUS_EVENT_FLAGS/* (RADIO_EVENT_AUTHENTICATE | RADIO_EVENT_NETW_FULL | RADIO_EVENT_WRONG_PASSW
-                    | NODE_ALREADY_KNOWN)*/)
+            /* Did the Event include status flag? */
+            if(events & STATUS_EVENT_FLAGS)
             {
+                /* Remove Valid Packet flag from events */
                 events = events & ~RADIO_EVENT_VALID_PACKET_RECEIVED;
 
+                /* Send status message */
                 sendStatusMsg(events);
             }
             else
@@ -225,7 +226,7 @@ static void concentratorRadioTaskFunction(UArg arg0, UArg arg1)
 
 static void sendStatusMsg(uint32_t statusMsg)
 {
-    /* Set destinationAdress, but use EasyLink layers destination address capability */
+    /* Set destinationAdress */
     txPacket.dstAddr[0] = bindWaitNode.address;
 
     txPacket.payload[0] = RADIO_CONCENTRATOR_ADDRESS;
@@ -262,6 +263,18 @@ static void sendAck(uint8_t latestSourceAddress) {
     if (EasyLink_transmit(&txPacket) != EasyLink_Status_Success)
     {
         System_abort("EasyLink_transmit failed");
+    }
+
+    uint8_t i;
+
+    for(i = 0; i < 5; i++) {
+        GPIO_toggle(Board_GPIO_LED0);
+
+        Task_sleep(100000);
+
+        GPIO_toggle(Board_GPIO_LED0);
+
+        Task_sleep(100000);
     }
 }
 
