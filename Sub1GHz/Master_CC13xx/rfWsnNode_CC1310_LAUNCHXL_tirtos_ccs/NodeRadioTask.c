@@ -493,7 +493,7 @@ static void rxDoneCallback(EasyLink_RxPacket * rxPacket, EasyLink_Status status)
                 uint32_t statusEvent = (rxPacket->payload[2] << 24) | (rxPacket->payload[3] << 16) |
                                        (rxPacket->payload[4] << 8) | (rxPacket->payload[4]);
 
-                /* Post commissionTask whatever status we got from concentrator */
+                /* Post commissioningHandler whatever status we got from concentrator */
                 Event_post(commissionEventHandle, statusEvent);
             }
             else

@@ -59,6 +59,8 @@
 
 /***** Defines *****/
 
+#define PUTTY_DEBUG
+
 #define COMMISSIONING
 
 #define NODE_TASK_STACK_SIZE 1024
@@ -106,7 +108,7 @@ const char  skip2rows[]         = "\r\n\r\n";
 const char  enter_pass[]        = "Enter network password: ";
 const char  wrong_pass[]        = "Wrong password, try again!\r\n";
 const char  netw_full[]         = "The network is full. To replace an existing node, press Y. Press n if nothing is to be done.\r\n";
-const char  connected[]         = "Connection to Concentrator established.\r\n\r\n";
+const char  connected_string[]         = "Connection to Concentrator established.\r\n\r\n";
 const char  connection_failed[] = "Connection failed. Try again? Y/n: ";
 
 
@@ -150,7 +152,7 @@ void adcCallback(uint16_t adcValue);
 void buttonCallback(PIN_Handle handle, PIN_Id pinId);
 void uartRead(UART_Handle uart, struct UARTPacket *data, uint8_t *dataLen);
 void uartWrite(UART_Handle uart, struct UARTPacket *data, uint8_t dataLen);
-void commissioningHandler(UART_Handle uart, uint32_t cEvents);
+void commissioningHandler(UART_Handle uart);
 
 /***** Function definitions *****/
 
@@ -224,6 +226,7 @@ static void userTask(UArg arg0, UArg arg1)
     UART_Params uartParams;
     struct UARTPacket uartPacket;
     uint8_t pktSize;
+    char input;
 
     connected = 0;
 
@@ -251,26 +254,72 @@ static void userTask(UArg arg0, UArg arg1)
         while (1);
     }
 
-    struct UARTPacket test;
-    test.flag = 0xF0F0F0F0;
-    test.rssi = 56;
-    strcpy(test.message, "welcome");
 
-    uartWrite(uart, &test, sizeof(struct UARTPacket));
+
+#ifdef PUTTY_DEBUG
+
+    const char debug_msg[] = "Welcome to debug session.\r\n";
+    const char debug_msg2[] = "Press 'c' to start Commissioning Tool,\r\n'd' to start Deployment Tool or\r\n'f' to start Node App.\r\n";
+
+    UART_write(uart, debug_msg, sizeof(debug_msg));
+
+#endif
+
 
     while(1)
     {
         // Wait for UART packet read...
+
+#ifdef PUTTY_DEBUG
+
+        UART_write(uart, debug_msg2, sizeof(debug_msg2));
+
+        UART_read(uart, &input, 1);
+        UART_write(uart, &input, 1);
+
+        if(input == 'c')
+        {
+            // Print new line
+            UART_write(uart, "\r\n", 2);
+
+            /* Run commissioning tool */
+            commissioningHandler(uart);
+        }
+        else if(input == 'd')
+        {
+            UART_write(uart, "Here will be deployment tool stuff...\r\n", 39);
+            //deploymentHandler(uart);
+        }
+        else if(input == 'f')
+        {
+            Event_post(connectEventHandle, RADIO_EVENT_CONNECT_SUCCESS);
+        }
+
+#else //UART via CC2650
+
         uartRead(uart, &uartPacket, &pktSize);
 
-        //switch (buffer.flaggor)
-            //post radioTask...
+        if(uartPacket.flag == RADIO_EVENT_INIT)
+        {
+            /* Run commissioning process */
+            commissioningHandler(uart);
+        }
 
-        commissioningHandler(uart, )
+#endif //PUTTY_DEBUG
+
+
+        /* If still not connected, continue to loop start */
+        if(!connected)
+        {
+            continue;
+        }
+
+        /* Deployment implementation */
+        /* . . . */
 
 
 
-        switch(uartPacket.flag)
+        /*switch(uartPacket.flag)
         {
         case (readVar):
         {
@@ -294,18 +343,18 @@ static void userTask(UArg arg0, UArg arg1)
         }
         if(uartPacket.flag & )
         commissionHandle(uart, uartPacket.flag);
-
+        */
         // wait for radio event
 
         // Wait for directions
-        uint32_t cEvents = Event_pend(commissionEventHandle, 0, RADIO_EVENT_CONNECT_FAIL
+        /*uint32_t cEvents = Event_pend(commissionEventHandle, 0, RADIO_EVENT_CONNECT_FAIL
                                       | RADIO_EVENT_CONNECT_SUCCESS | RADIO_EVENT_AUTHENTICATE
                                       | RADIO_EVENT_NETW_FULL | RADIO_EVENT_WRONG_PASSW
                                       | RADIO_EVENT_INIT, BIOS_WAIT_FOREVER);
+        */
 
 
-
-        uartWrite(uart, )
+        //uartWrite(uart);
         //UART_write() tillbaka till CC2650.
 
 
@@ -349,10 +398,13 @@ void uartWrite(UART_Handle uart, struct UARTPacket *data, uint8_t dataLen)
 
 void commissioningHandler(UART_Handle uart)
 {
-    uint8_t     size, data;
+    uint8_t     size, data = 0;
     char        input;
     char        echo[2];
+
+#ifndef PUTTY_DEBUG
     struct UARTPacket uartPacket;
+#endif
 
     NodeRadioTask_sendData((void *) data, 0, RADIO_EVENT_SEND_INIT_MSG);
 
@@ -366,12 +418,12 @@ void commissioningHandler(UART_Handle uart)
         /* If the user wants to connect this unit/node to a concentrator,
          * an InitPacket is broadcasted to concentrators nearby.
          */
-        if (cEvents & RADIO_EVENT_INIT)
+        /*if (cEvents & RADIO_EVENT_INIT)
         {
             // Say hello to concentrator
             data = NODE_TYPE_BLE_ANNCE;
             NodeRadioTask_sendData((void *) data, 0, RADIO_EVENT_SEND_INIT_MSG);
-        }
+        }*/
 
         /* This flag is set if:
          * a concentrator tells this node to attempt authentication.
@@ -382,35 +434,38 @@ void commissioningHandler(UART_Handle uart)
             // If the previously entered password was wrong
             if (cEvents & RADIO_EVENT_WRONG_PASSW)
             {
-                //UART_write(uart, skip2rows, sizeof(skip2rows));
+#ifdef PUTTY_DEBUG
+                UART_write(uart, skip2rows, sizeof(skip2rows));
                 // Tell user that the password was wrong and to try again
-                //UART_write(uart, wrong_pass, sizeof(wrong_pass));
+                UART_write(uart, wrong_pass, sizeof(wrong_pass));
 
-                //UART_write(uart, enter_pass, sizeof(enter_pass));
-
+                UART_write(uart, enter_pass, sizeof(enter_pass));
+#else   //UART via CC2650
                 // Set UART packet flag wrong password
                 uartPacket.flag = RADIO_EVENT_WRONG_PASSW;
 
                 // Send UART packet to CC2650
-                uartWrite(uart, uartPacket, 5);
+                uartWrite(uart, &uartPacket, 5);
+#endif
             }
             else
             {
+#ifdef PUTTY_DEBUG
+                UART_write(uart, enter_pass, sizeof(enter_pass));
+#else   //UART via CC2650
                 uartPacket.flag = RADIO_EVENT_AUTHENTICATE;
 
                 // Tell user to enter password
                 uartWrite(uart, &uartPacket, 5);
+#endif
             }
 
+#ifdef PUTTY_DEBUG
+
+            uint8_t i = 0;
             input = ' ';
-            int i = 0;
 
-            // Wait for password entry
-            uartRead(uart, &uartPacket, &size);
-
-
-
-            /*while ((i < PASSWORD_LENGTH) && (input != 13))
+            while ((i < PASSWORD_LENGTH) && (input != 13))
             {
                 UART_read(uart, &input, 1);
 
@@ -429,15 +484,32 @@ void commissioningHandler(UART_Handle uart)
                 }
 
                 UART_write(uart, &echo, size);
-            }*/
+            }
 
             // Add null termination
-            //passw[i] = '\0';
-            //i++;
+            passw[i] = '\0';
+            i++;
+
+            // Send the password to concentrator
+            NodeRadioTask_sendData((void *) passw, i, RADIO_EVENT_SEND_PASSW);
+
+#else   //UART via CC2650
+
+            uartPacket.flag = 0;
+
+            // Wait for UART packet containing a password
+            while(!(uartPacket.flag & RADIO_EVENT_SEND_PASSW))
+            {
+                uartRead(uart, &uartPacket, &size);
+
+                // Alert user.. watafak
+            }
 
 
             // Send the password to concentrator
             NodeRadioTask_sendData((void *) uartPacket.message, size, RADIO_EVENT_SEND_PASSW);
+
+#endif  //PUTTY_DEBUG
         }
 
         /* If the network is full:
@@ -445,34 +517,57 @@ void commissioningHandler(UART_Handle uart)
          */
         if (cEvents & RADIO_EVENT_NETW_FULL)
         {
+#ifdef PUTTY_DEBUG
+
+            UART_write(uart, netw_full, sizeof(netw_full));
+
+            do {
+                UART_read(uart, &input, 1);
+                UART_write(uart, &input, 1);
+
+                if(input == 'y' || input == 'Y')
+                {
+
+                    /* Alert concentrator to send a list of existing nodes
+                     * to choose which one to replace
+                     */
+                    NodeRadioTask_sendData((void *) 0, 0, RADIO_EVENT_GET_LOOKUP_TABLE);
+
+                    //  //  EDIT
+                    /************************/
+                    UART_write(uart, skip2rows, sizeof(skip2rows));
+
+                }
+                else if(input == 'n' || input == 'N')
+                {
+                    /* Do nothing */
+                    UART_write(uart, skip2rows, sizeof(skip2rows));
+
+                }
+            } while(input != 'y' || input != 'Y' || input != 'n' || input != 'N');
+#else   //UART via CC2650
             uartPacket.flag = RADIO_EVENT_NETW_FULL;
 
             uartWrite(uart, &uartPacket, 5);
 
-            /*UART_write(uart, netw_full, sizeof(netw_full));
+            uartRead(uart, &uartPacket, );
 
-            UART_read(uart, &input, 1);
-            UART_write(uart, &input, 1);*/
+            if(uartPacket.message[0] == 'y')
+            {
+                /* Alert concentrator to send a list of existing nodes
 
-            /*do {
-                if(input == 'y' || input == 'Y')
-                {
-                    /* Alert concentrator to send a list of existing nodes
-                     * to choose which one to replace
-                     */
-                    //  //  EDIT
-                    /************************/
-                    //UART_write(uart, skip2rows, sizeof(skip2rows));
+                 * to choose which one to replace
+                 */
+                NodeRadioTask_sendData((void *) 0, 0, RADIO_EVENT_GET_LOOKUP_TABLE);
 
-                //}
-                //else if(input == 'n' || input == 'N')
-                //{
-                    /* Do nothing */
-                    //UART_write(uart, skip2rows, sizeof(skip2rows));
+            }
+            else if(uartPacket.message[0] == 'n')
+            {
+                /* DO NOTHING */
 
-              //  }
-            //} while(input != 'y' || input != 'Y' || input != 'n' || input != 'N');
+            }
 
+#endif
         }
 
         /* If this unit/node already was known by the network
@@ -483,7 +578,13 @@ void commissioningHandler(UART_Handle uart)
         if (cEvents & (RADIO_EVENT_CONNECT_SUCCESS | NODE_ALREADY_KNOWN))
         {
             // Alert user that connection is established
-            UART_write(uart, connected, sizeof(connected));
+#ifdef PUTTY_DEBUG
+            UART_write(uart, connected_string, sizeof(connected_string));
+#else
+            uartPacket.flag = RADIO_EVENT_CONNECT_SUCCESS;
+
+            uartWrite(uart, &uartPacket, 5);
+#endif
 
             connected = 1;
 
@@ -497,10 +598,39 @@ void commissioningHandler(UART_Handle uart)
             /* Tell user that connection has failed and ask if
              * user wants to try again
              */
+#ifdef PUTTY_DEBUG
             UART_write(uart, connection_failed, sizeof(connection_failed));
             /* . . . */
-            break;
+            while(1)
+            {
+                UART_read(uart, &input, 1);
 
+                if(input == 'y')
+                {
+                    NodeRadioTask_sendData((void *) 0, 0, RADIO_EVENT_SEND_INIT_MSG);
+                    break;
+                }
+                else if(input == 'n')
+                {
+                    break;
+                }
+
+            }
+
+#else   //UART via CC2650
+            uartPacket.flag = RADIO_EVENT_CONNECT_FAIL;
+
+            uartWrite(uart, &uartPacket, 5);
+
+            uartRead(uart, &uartPacket, &size);
+
+            if(uartPacket.message[0] == 'y')
+            {
+                NodeRadioTask_sendData((void *) 0, 0, RADIO_EVENT_SEND_INIT_MSG);
+            }
+#endif
+
+            break;
         }
     }
 }
